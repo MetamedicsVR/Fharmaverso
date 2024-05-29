@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/- MetaMedicsVR -/Scenes/Jesus/Scene_Lobby.unity
-    guid: 4ceeefbbbef0a1e44827cd55f937b31a
+    path: Assets/- MetaMedicsVR -/Scenes/Jesus/Fharmaverso.unity
+    guid: c6675cfc1acfaa046b9ea5ea4692662b
   m_configObjects: {}
