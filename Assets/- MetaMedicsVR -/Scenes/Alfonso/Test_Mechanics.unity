@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 184781838}
   - component: {fileID: 184781837}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Sphere_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,7 +222,7 @@ Transform:
   m_GameObject: {fileID: 184781836}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.3, y: -3.9, z: 20}
+  m_LocalPosition: {x: -14.3, y: -9.6, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 282045027}
   - component: {fileID: 282045026}
   m_Layer: 0
-  m_Name: Sphere (1)
+  m_Name: Sphere_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -327,7 +327,7 @@ Transform:
   m_GameObject: {fileID: 282045025}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.73, y: 9.1, z: 20}
+  m_LocalPosition: {x: 11.8, y: 9.1, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -346,7 +346,7 @@ GameObject:
   - component: {fileID: 786211995}
   - component: {fileID: 786211996}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: DragQueen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -482,9 +482,14 @@ MonoBehaviour:
   OnHoverEnd:
     m_PersistentCalls:
       m_Calls: []
+  OnDragEnded:
+    m_PersistentCalls:
+      m_Calls: []
   pointA: {fileID: 184781840}
   pointB: {fileID: 282045029}
   pointC: {fileID: 1888617277}
+  lookCenter: 1
+  lookAngle: 0
 --- !u!1 &797811745
 GameObject:
   m_ObjectHideFlags: 0
@@ -865,7 +870,7 @@ GameObject:
   - component: {fileID: 1888617275}
   - component: {fileID: 1888617274}
   m_Layer: 0
-  m_Name: Sphere (2)
+  m_Name: Sphere_C
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -951,7 +956,7 @@ Transform:
   m_GameObject: {fileID: 1888617273}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 37.5, y: -1.7, z: 59.8}
+  m_LocalPosition: {x: 11.2, y: -10.8, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
