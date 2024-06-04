@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Collider))]
 public abstract class Interactable2D : MonoBehaviour
 {
+    public bool canInteract;
     public UnityEvent OnHoverStart;
     public UnityEvent OnHoverEnd;
 
@@ -26,7 +27,7 @@ public abstract class Interactable2D : MonoBehaviour
 
     public void StartInteraction()
     {
-        if (!interacting)
+        if (!interacting && canInteract)
         {
             interacting = true;
             InteractionStarted();

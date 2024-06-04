@@ -1,20 +1,40 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LinearDragable : Dragable
 {
+    public UnityEvent Snapped;
+
     public Transform pointA;
     public Transform pointB;
     [Range(0, 1)]
     public float snapPoint;
     public float snapRange;
     public bool autoSnap;
+    public bool resetOnRelease;
 
+    private Vector3 startingPosition;
     private bool snapped;
 
+    private void Start()
+    {
+        startingPosition = transform.position;
+    }
 
     protected override void InteractionEnded()
     {
         CheckSnap();
+        if (snapped)
+        {
+            Snapped.Invoke();
+        }
+        else
+        {
+            if (resetOnRelease)
+            {
+                transform.position = startingPosition;
+            }
+        }
     }
 
     protected override void Drag()
