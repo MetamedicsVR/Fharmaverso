@@ -26,6 +26,7 @@ public class LinearDragable : Dragable
         CheckSnap();
         if (snapped)
         {
+            canInteract = false;
             Snapped.Invoke();
         }
         else
