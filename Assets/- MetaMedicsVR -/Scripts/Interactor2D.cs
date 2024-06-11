@@ -14,7 +14,6 @@ public class Interactor2D : MonoBehaviour
         SelectInteractable();
         CheckInteractableChange();
         Interact();
-        //Test();
     }
 
     private void SelectInteractable()
@@ -23,42 +22,13 @@ public class Interactor2D : MonoBehaviour
         Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, Mathf.Infinity);
         if (hit.collider)
         {
-            print("Hit: " + hit.collider.name);
             selectedInteractable = hit.transform.gameObject.GetComponent<Interactable2D>();
         }
         else
         {
-            print("Nothing");
             selectedInteractable = null;
         }
     }
-
-
-    /*
-    public Transform rows;
-    public Color hitColor = new Color(1, 1, 0, 0.5f);
-    public Color missColor = new Color(0, 1, 0, 0.5f);
-
-    private void Test()
-    {
-        for (int i = 0; i < rows.childCount; i++)
-        {
-            for (int j = 0; j < rows.GetChild(i).childCount; j++)
-            {
-                Ray ray = Camera.main.ScreenPointToRay(Camera.main.WorldToScreenPoint(rows.GetChild(i).GetChild(j).position));
-                Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, Mathf.Infinity);
-                if (hit.collider)
-                {
-                    rows.GetChild(i).GetChild(j).GetComponent<RawImage>().color = hitColor;
-                }
-                else
-                {
-                    rows.GetChild(i).GetChild(j).GetComponent<RawImage>().color = missColor;
-                }
-            }
-        }
-    }
-    */
 
     private void CheckInteractableChange()
     {

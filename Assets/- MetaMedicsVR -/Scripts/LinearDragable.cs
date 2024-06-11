@@ -7,11 +7,13 @@ public class LinearDragable : Dragable
 
     public Transform pointA;
     public Transform pointB;
+    public bool resetOnRelease;
+    [Header("Snap")]
+    public bool shouldSnap;
     [Range(0, 1)]
     public float snapPoint;
     public float snapRange;
     public bool autoSnap;
-    public bool resetOnRelease;
 
     private Vector3 startingPosition;
     private bool snapped;
@@ -22,6 +24,16 @@ public class LinearDragable : Dragable
     }
 
     protected override void InteractionEnded()
+    {
+        Release();
+    }
+
+    protected override void InteractionCanceled()
+    {
+        Release();
+    }
+
+    private void Release()
     {
         CheckSnap();
         if (snapped)
@@ -76,11 +88,14 @@ public class LinearDragable : Dragable
 
     private void CheckSnap()
     {
-        Vector3 snapPosition = Vector3.Lerp(pointA.position, pointB.position, snapPoint);
-        if (Vector3.Distance(transform.position, snapPosition) <= snapRange)
+        if (shouldSnap)
         {
-            transform.position = snapPosition;
-            snapped = true;
+            Vector3 snapPosition = Vector3.Lerp(pointA.position, pointB.position, snapPoint);
+            if (Vector3.Distance(transform.position, snapPosition) <= snapRange)
+            {
+                transform.position = snapPosition;
+                snapped = true;
+            }
         }
     }
 
@@ -92,7 +107,10 @@ public class LinearDragable : Dragable
             Gizmos.color = new Color(1, 1, 0);
             Gizmos.DrawLine(pointA.position, pointB.position);
             Gizmos.color = new Color(1, 0.5f, 0, 0.5f);
-            Gizmos.DrawSphere(Vector3.Lerp(pointA.position, pointB.position, snapPoint), snapRange);
+            if (shouldSnap)
+            {
+                Gizmos.DrawSphere(Vector3.Lerp(pointA.position, pointB.position, snapPoint), snapRange);
+            }
         }
     }
 #endif

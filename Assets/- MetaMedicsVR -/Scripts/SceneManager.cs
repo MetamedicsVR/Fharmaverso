@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class SceneManager : MonoBehaviour
 {
+    [Header("Menu")]
     public GameObject clase;
     public GameObject libros;
     public GameObject poster_Izquierda;
@@ -14,6 +15,9 @@ public class GameManager : MonoBehaviour
     public GameObject comic_acompañado;
     public GameObject entrenar_medicación;
     public GameObject satisfacción;
+
+    [Header("Games")]
+    public GameObject fallingObjects;
 
     private void Start()
     {
@@ -32,5 +36,6 @@ public class GameManager : MonoBehaviour
         comic_acompañado.SetActive(escenario == comic_acompañado);
         entrenar_medicación.SetActive(escenario == entrenar_medicación);
         satisfacción.SetActive(escenario == satisfacción);
+        fallingObjects.SetActive(escenario == fallingObjects);
     }
 }

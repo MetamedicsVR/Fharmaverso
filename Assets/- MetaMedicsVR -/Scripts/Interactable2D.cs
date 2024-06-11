@@ -6,7 +6,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Collider))]
 public abstract class Interactable2D : MonoBehaviour
 {
-    public bool canInteract;
+    public bool canInteract = true;
     public UnityEvent OnHoverStart;
     public UnityEvent OnHoverEnd;
 
