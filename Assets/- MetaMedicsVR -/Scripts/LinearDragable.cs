@@ -17,15 +17,14 @@ public class LinearDragable : Dragable
     public float snapRange;
     public bool autoSnap;
 
-    private float displacement = 0;
+    private float currentDisplacement = 0;
+    private float lastDisplacement = 0;
 
     [Header("Animations")]
     public AnimationBlend[] animationBlends;
 
     private Vector3 startingPosition;
     private bool snapped;
-
-
 
     [System.Serializable]
     public struct AnimationBlend
@@ -79,6 +78,13 @@ public class LinearDragable : Dragable
             {
                 CheckSnap();
             }
+            if (currentDisplacement != lastDisplacement)
+            {
+                transform.position = pointA.position + currentDisplacement * (pointB.position - pointA.position);
+                UpdateAnimations();
+                OnDisplacementChanged.Invoke(currentDisplacement);
+                lastDisplacement = currentDisplacement;
+            }
         }
     }
 
@@ -89,21 +95,14 @@ public class LinearDragable : Dragable
 
         float magnitudeAB = AB.sqrMagnitude;
         float ABdotAP = Vector3.Dot(AP, AB);
-        float t = Mathf.Clamp01(ABdotAP / magnitudeAB);
-        if(displacement != t)
-        {
-            displacement = t;
-            transform.position = pointA.position + displacement * AB;
-            UpdateAnimations();
-            OnDisplacementChanged.Invoke(t);
-        }
+        currentDisplacement = Mathf.Clamp01(ABdotAP / magnitudeAB);
     }
 
     private void UpdateAnimations()
     {
         if (animationBlends.Length > 0)
         {
-            float time = Mathf.Clamp(displacement, 0.0001f, 0.9999f);
+            float time = Mathf.Clamp(currentDisplacement, 0.0001f, 0.9999f);
             foreach (AnimationBlend animationBlend in animationBlends)
             {
                 if (animationBlend.animator && animationBlend.animationName != "")
@@ -124,6 +123,7 @@ public class LinearDragable : Dragable
             {
                 transform.position = snapPosition;
                 snapped = true;
+                currentDisplacement = 1;
             }
         }
     }
