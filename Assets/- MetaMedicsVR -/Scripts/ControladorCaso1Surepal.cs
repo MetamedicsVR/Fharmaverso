@@ -1,19 +1,64 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ControladorCaso1Surepal : MonoBehaviour
 {
 
+    public TextMeshProUGUI textoExplicacíon;
+
+    public string[] textosDePasoEnOrden;
+
+    public Animator muestraSurepals;
+
+    public GameObject paqueteEstucheInteraccion;
+
+    public GameObject[] estuchesFakeAApagar;
+    
+
+    #region Auxiliares
+    private void Start()
+    {
+        StartReconocerDispositivo();
+     
+    }
+
+    public void CallReplaceSurepalsEnEstuche() 
+    {
+        for (int i = 0; i < estuchesFakeAApagar.Length; i++)
+        {
+            estuchesFakeAApagar[i].SetActive(false);
+        }
+        paqueteEstucheInteraccion.SetActive(true);
+    }
+
+    public void CallAnimationSurepalCorrect(Animator surepalAnimator) 
+    {
+        surepalAnimator.CrossFade("ClickarSurepalCorrecto",1);
+    }
+
+    public void CallAnimationSurepalIncorrect(Animator surepalAnimator)
+    {
+        surepalAnimator.CrossFade("ClickarSurepalErroneo", 1);
+    }
+
+    #endregion
+
+
+
     #region ReconocerDispositivo
     public void StartReconocerDispositivo() 
     {
-    
+        paqueteEstucheInteraccion.SetActive(false);
+        textoExplicacíon.text = textosDePasoEnOrden[0];
+        muestraSurepals.Play("MostrarSurepals"); // la animacion dura 5 secs
+        Invoke(nameof(CallReplaceSurepalsEnEstuche), 5);
     }
 
     public void ReconocerDispositivo() 
     {
-    
+        
     }
 
     public void AparecerNevera() 
@@ -296,6 +341,16 @@ public class ControladorCaso1Surepal : MonoBehaviour
     
     }
 
+    public void TerminaConExitoCuentaAtrasSurepal() 
+    {
+    
+    }
+
+    public void DragAndDropSacarSurepalDelBrazo() 
+    {
+    
+    }
+
     #endregion
 
     #region PostInyeccion
@@ -303,6 +358,103 @@ public class ControladorCaso1Surepal : MonoBehaviour
     {
     
     }
+
+    public void ComprobarDosisPostInyeccion() 
+    {
+    
+    }
+
+    public void MostrarSurepalDeLadoConProtector() 
+    {
+    
+    }
+
+    public void DragAndDropSacarOcultadorDeAguja() 
+    {
+    
+    }
+
+    public void DragAndDropGuardarOcultadorDeAgujaEnEstuche() 
+    {
+    
+    }
+
+    public void MostrarProtectorDeAgujaAlineadoConSurepal() 
+    {
+    
+    }
+
+    public void DragAndDropColocarProtectorDeAguja() 
+    {
+    
+    }
+
+    public void GirarProtectorDeAgujaParaDescolocar() 
+    {
+    
+    }
+
+    public void DragAndDropProtectorDeAgujaEnContenedor() 
+    {
+    
+    }
+
+    public void MostrarSurepalSinAgujaConCierreListoParaGirar() 
+    {
+    
+    }
+
+    public void DesenroscarAnilloDeCierre() 
+    {
+    
+    }
+
+    public void DragAndDropSacarAnilloDeCierre() 
+    {
+    
+    }
+
+    public void DragAndDropSacarCartuchoDeAnilloDeCierre()
+    {
+
+    }
+
+    public void DragAndDropTiraCartuchoVacioAPapelera() 
+    {
+    
+    }
+
+    public void RencajaAnilloDeCierre() 
+    {
+    
+    }
+
+    public void GiraAnilloDeCierreSinAguja()
+    {
+
+    }
+
+    public void DragAndDropSurepalAlEstuche() 
+    {
+    
+    }
+
+    public void DragAndDropCerrarEstuche() 
+    {
+    
+    }
+
+    public void ApareceNeveraYSeAbre() 
+    {
+       
+    }
+
+    public void DragAndDropGuardaSurepalEnNevera() 
+    {
+    
+    }
+
+
     #endregion
 
 }
