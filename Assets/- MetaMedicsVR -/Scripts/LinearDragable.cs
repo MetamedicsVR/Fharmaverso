@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class LinearDragable : Dragable
 {
     public UnityEvent Snapped;
+    public UnityEvent<float> OnDisplacementChanged;
 
     public Transform pointA;
     public Transform pointB;
@@ -16,11 +17,15 @@ public class LinearDragable : Dragable
     public float snapRange;
     public bool autoSnap;
 
+    private float displacement = 0;
+
     [Header("Animations")]
     public AnimationBlend[] animationBlends;
 
     private Vector3 startingPosition;
     private bool snapped;
+
+
 
     [System.Serializable]
     public struct AnimationBlend
@@ -69,7 +74,7 @@ public class LinearDragable : Dragable
             Vector3 mouseScreenPosition = Input.mousePosition;
             mouseScreenPosition.z = distanceFromCamera;
             Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
-            MoveToClosestPoint(mouseWorldPosition + positionOffset);
+            CheckDisplacement(mouseWorldPosition + positionOffset);
             if (autoSnap)
             {
                 CheckSnap();
@@ -77,7 +82,7 @@ public class LinearDragable : Dragable
         }
     }
 
-    private void MoveToClosestPoint(Vector3 p)
+    private void CheckDisplacement(Vector3 p)
     {
         Vector3 AB = pointB.position - pointA.position;
         Vector3 AP = p - pointA.position;
@@ -85,18 +90,26 @@ public class LinearDragable : Dragable
         float magnitudeAB = AB.sqrMagnitude;
         float ABdotAP = Vector3.Dot(AP, AB);
         float t = Mathf.Clamp01(ABdotAP / magnitudeAB);
+        if(displacement != t)
+        {
+            displacement = t;
+            transform.position = pointA.position + displacement * AB;
+            UpdateAnimations();
+            OnDisplacementChanged.Invoke(t);
+        }
+    }
 
-        transform.position = pointA.position + t * AB;
-
+    private void UpdateAnimations()
+    {
         if (animationBlends.Length > 0)
         {
-            t = Mathf.Clamp(t, 0.0001f, 0.9999f);
+            float time = Mathf.Clamp(displacement, 0.0001f, 0.9999f);
             foreach (AnimationBlend animationBlend in animationBlends)
             {
                 if (animationBlend.animator && animationBlend.animationName != "")
                 {
                     animationBlend.animator.speed = 0;
-                    animationBlend.animator.Play(animationBlend.animationName, 0, animationBlend.reverse ? 1 - t : t);
+                    animationBlend.animator.Play(animationBlend.animationName, 0, animationBlend.reverse ? 1 - time : time);
                 }
             }
         }

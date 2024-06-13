@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class ControladorCaso1Surepal : MonoBehaviour
 {
-
-    public TextMeshProUGUI textoExplicac韔n;
+ 
+    public TextMeshProUGUI textoExplicac铆on;
 
     public string[] textosDePasoEnOrden;
 
+    public Animator panelConsejo;
+    [Header("PrimerPaso")]
     public Animator muestraSurepals;
 
     public GameObject paqueteEstucheInteraccion;
@@ -21,14 +23,53 @@ public class ControladorCaso1Surepal : MonoBehaviour
     public GameObject panelMuyBien;
 
     public GameObject [] parentPasos;
-
+    [Header("Segundo Paso")]
     public Animator neveraAnimator;
 
-    public GameObject dragAndDropAbrirNevera;
+    public GameObject dragAndDropAbrirNeveraVisual;
+    public GameObject dragAndDropAbrirNeveraLogica;
 
+    public GameObject dragAndDropSacarSurepalVisual;
+    public GameObject dragAndDropSacarSurepalLogica;
+
+    public GameObject surepalEnNevera;
+  
+   
 
 
     #region Auxiliares
+
+    public void ChangeAndShowConsejo(string consejoTexto) 
+    {
+        panelConsejo.GetComponentInChildren<TextMeshProUGUI>().text = consejoTexto;
+        panelConsejo.Play("MostrarConsejo");
+
+    }
+    public void TurnOffOutlines(Transform parentGameobject) 
+    {
+        Outline outline = parentGameobject.GetComponent<Outline>();
+        if(outline)
+        {
+            outline.enabled = false;
+        }
+        for (int i = 0; i < parentGameobject.childCount; i++)
+        {
+            TurnOffOutlines(parentGameobject.GetChild(i));
+        }
+    }
+
+    public void TurnOnOutlines(Transform parentGameobject)
+    {
+        Outline outline = parentGameobject.GetComponent<Outline>();
+        if (outline)
+        {
+            outline.enabled = true;
+        }
+        for (int i = 0; i < parentGameobject.childCount; i++)
+        {
+            TurnOnOutlines(parentGameobject.GetChild(i));
+        }
+    }
     private void Start()
     {
         StartReconocerDispositivo();
@@ -42,12 +83,18 @@ public class ControladorCaso1Surepal : MonoBehaviour
             estuchesFakeAApagar[i].SetActive(false);
         }
         paqueteEstucheInteraccion.SetActive(true);
+        textoExplicac铆on.text = textosDePasoEnOrden[1];
+        ChangeAndShowConsejo("Selecciona tu Surepal");
+
+
     }
 
     public void CallAnimationSurepalCorrect(Animator surepalAnimator) 
     {
         surepalAnimator.CrossFade("ClickarSurepalCorrecto", 0.2f);
-        surepalAnimator.GetComponent<BoxCollider>().enabled = false;
+        surepalErroneosARetirar[0].GetComponent<Collider>().enabled = false;
+        surepalErroneosARetirar[1].GetComponent<Collider>().enabled = false;
+        surepalAnimator.GetComponent<Collider>().enabled = false;
         for (int i = 0; i < surepalErroneosARetirar.Length; i++)
         {
             surepalErroneosARetirar[i].CrossFade("RetiraSurepal", 0.2f);
@@ -65,17 +112,17 @@ public class ControladorCaso1Surepal : MonoBehaviour
     public void MoveToMousePositionPanelMuyBien()
     {
         panelMuyBien.SetActive(true);
-        // Obtener la posici髇 del rat髇 en la pantalla
+        // Obtener la posici贸n del rat贸n en la pantalla
         Vector2 mousePosition = Input.mousePosition;
 
-        // Convertir la posici髇 del rat髇 a la posici髇 dentro del Canvas
+        // Convertir la posici贸n del rat贸n a la posici贸n dentro del Canvas
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             panelMuyBien.transform.parent as RectTransform,
             mousePosition,
             null,
             out Vector2 localPoint);
 
-        // Mover el GameObject a la posici髇 calculada
+        // Mover el GameObject a la posici贸n calculada
         panelMuyBien.GetComponent<RectTransform>().anchoredPosition = localPoint;
         Invoke(nameof(DesactivarPanelMuyBien), 1.5f);
     }
@@ -93,15 +140,19 @@ public class ControladorCaso1Surepal : MonoBehaviour
     public void StartReconocerDispositivo() 
     {
         paqueteEstucheInteraccion.SetActive(false);
-        textoExplicac韔n.text = textosDePasoEnOrden[0];
+        textoExplicac铆on.text = textosDePasoEnOrden[0];
         muestraSurepals.Play("MostrarSurepals"); // la animacion dura 5 secs
         Invoke(nameof(CallReplaceSurepalsEnEstuche), 5);
     }
 
     public void ReconocerDispositivo() 
     {
-        textoExplicac韔n.text = textosDePasoEnOrden[1];
-      
+        textoExplicac铆on.text = textosDePasoEnOrden[2];
+        
+        for (int i = 0; i < surepalErroneosARetirar.Length; i++)
+        {
+            surepalErroneosARetirar[i].GetComponent<Clickable>().enabled = false;
+        }
         Invoke(nameof(AparecerNevera),10);
     }
 
@@ -109,12 +160,37 @@ public class ControladorCaso1Surepal : MonoBehaviour
     {
         parentPasos[0].SetActive(false);
         parentPasos[1].SetActive(true);
+        Invoke(nameof(EnableSliderVisualNevera), 2);
+    }
 
+    public void EnableSliderVisualNevera() 
+    {
+        dragAndDropAbrirNeveraVisual.SetActive(true);
+        ChangeAndShowConsejo("Selecciona el asa y arrastra");
+    }
+
+    public void SlideNeveraTerminado() 
+    {
+        TurnOffOutlines(neveraAnimator.transform);
+        MoveToMousePositionPanelMuyBien();
+        dragAndDropAbrirNeveraVisual.SetActive(false);
+        dragAndDropAbrirNeveraLogica.SetActive(false);
+        neveraAnimator.Play("NeveraCloseUp");
+        Invoke(nameof(EnableSliderVisualSacarSurepalDeNevera), 1);
+    }
+
+    public void EnableSliderVisualSacarSurepalDeNevera()
+    {
+        dragAndDropSacarSurepalVisual.SetActive(true);
+        dragAndDropSacarSurepalLogica.SetActive(true);
+        ChangeAndShowConsejo("Selecciona el estuche y arrastra");
     }
 
     public void SacarDispositivoDeNevera() 
     {
-    
+        dragAndDropSacarSurepalVisual.SetActive(false);
+        dragAndDropSacarSurepalLogica.SetActive(false);
+        //surepalEnNevera.GetComponent<Animator>().Play("SacarEstucheDeNevera");
     }
 
     #endregion
