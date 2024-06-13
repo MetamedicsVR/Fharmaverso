@@ -15,7 +15,18 @@ public class ControladorCaso1Surepal : MonoBehaviour
     public GameObject paqueteEstucheInteraccion;
 
     public GameObject[] estuchesFakeAApagar;
-    
+
+    public Animator [] surepalErroneosARetirar;
+
+    public GameObject panelMuyBien;
+
+    public GameObject [] parentPasos;
+
+    public Animator neveraAnimator;
+
+    public GameObject dragAndDropAbrirNevera;
+
+
 
     #region Auxiliares
     private void Start()
@@ -35,12 +46,43 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public void CallAnimationSurepalCorrect(Animator surepalAnimator) 
     {
-        surepalAnimator.CrossFade("ClickarSurepalCorrecto",1);
+        surepalAnimator.CrossFade("ClickarSurepalCorrecto", 0.2f);
+        surepalAnimator.GetComponent<BoxCollider>().enabled = false;
+        for (int i = 0; i < surepalErroneosARetirar.Length; i++)
+        {
+            surepalErroneosARetirar[i].CrossFade("RetiraSurepal", 0.2f);
+        }
+        MoveToMousePositionPanelMuyBien();
+
+
     }
 
     public void CallAnimationSurepalIncorrect(Animator surepalAnimator)
     {
-        surepalAnimator.CrossFade("ClickarSurepalErroneo", 1);
+        surepalAnimator.CrossFade("ClickarSurepalErroneo", 0.4f);
+    }
+
+    public void MoveToMousePositionPanelMuyBien()
+    {
+        panelMuyBien.SetActive(true);
+        // Obtener la posición del ratón en la pantalla
+        Vector2 mousePosition = Input.mousePosition;
+
+        // Convertir la posición del ratón a la posición dentro del Canvas
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            panelMuyBien.transform.parent as RectTransform,
+            mousePosition,
+            null,
+            out Vector2 localPoint);
+
+        // Mover el GameObject a la posición calculada
+        panelMuyBien.GetComponent<RectTransform>().anchoredPosition = localPoint;
+        Invoke(nameof(DesactivarPanelMuyBien), 1.5f);
+    }
+
+    public void DesactivarPanelMuyBien() 
+    {
+        panelMuyBien.SetActive(false);
     }
 
     #endregion
@@ -58,12 +100,16 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public void ReconocerDispositivo() 
     {
-        
+        textoExplicacíon.text = textosDePasoEnOrden[1];
+      
+        Invoke(nameof(AparecerNevera),10);
     }
 
     public void AparecerNevera() 
     {
-    
+        parentPasos[0].SetActive(false);
+        parentPasos[1].SetActive(true);
+
     }
 
     public void SacarDispositivoDeNevera() 
