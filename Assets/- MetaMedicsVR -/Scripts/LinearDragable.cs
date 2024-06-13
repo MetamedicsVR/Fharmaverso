@@ -8,6 +8,7 @@ public class LinearDragable : Dragable
     public Transform pointA;
     public Transform pointB;
     public bool resetOnRelease;
+
     [Header("Snap")]
     public bool shouldSnap;
     [Range(0, 1)]
@@ -15,8 +16,19 @@ public class LinearDragable : Dragable
     public float snapRange;
     public bool autoSnap;
 
+    [Header("Animations")]
+    public AnimationBlend[] animationBlends;
+
     private Vector3 startingPosition;
     private bool snapped;
+
+    [System.Serializable]
+    public struct AnimationBlend
+    {
+        public Animator animator;
+        public string animationName;
+        public bool reverse;
+    }
 
     private void Start()
     {
@@ -57,7 +69,7 @@ public class LinearDragable : Dragable
             Vector3 mouseScreenPosition = Input.mousePosition;
             mouseScreenPosition.z = distanceFromCamera;
             Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
-            transform.position = ClosestPoint(mouseWorldPosition + positionOffset);
+            MoveToClosestPoint(mouseWorldPosition + positionOffset);
             if (autoSnap)
             {
                 CheckSnap();
@@ -65,25 +77,24 @@ public class LinearDragable : Dragable
         }
     }
 
-    private Vector3 ClosestPoint(Vector3 p)
+    private void MoveToClosestPoint(Vector3 p)
     {
         Vector3 AB = pointB.position - pointA.position;
         Vector3 AP = p - pointA.position;
 
         float magnitudeAB = AB.sqrMagnitude;
         float ABdotAP = Vector3.Dot(AP, AB);
-        float t = ABdotAP / magnitudeAB;
+        float t = Mathf.Clamp01(ABdotAP / magnitudeAB);
 
-        if (t < 0)
+        transform.position = pointA.position + t * AB;
+        foreach (AnimationBlend animationBlend in animationBlends)
         {
-            return pointA.position;
+            if (animationBlend.animator && animationBlend.animationName != "")
+            {
+                animationBlend.animator.speed = 0;
+                animationBlend.animator.Play(animationBlend.animationName, 0, animationBlend.reverse ? 1 - t : t);
+            }
         }
-        else if (t > 1)
-        {
-            return pointB.position;
-        }
-        Vector3 closestPoint = pointA.position + t * AB;
-        return closestPoint;
     }
 
     private void CheckSnap()
