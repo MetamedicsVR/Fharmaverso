@@ -87,12 +87,17 @@ public class LinearDragable : Dragable
         float t = Mathf.Clamp01(ABdotAP / magnitudeAB);
 
         transform.position = pointA.position + t * AB;
-        foreach (AnimationBlend animationBlend in animationBlends)
+
+        if (animationBlends.Length > 0)
         {
-            if (animationBlend.animator && animationBlend.animationName != "")
+            t = Mathf.Clamp(t, 0.0001f, 0.9999f);
+            foreach (AnimationBlend animationBlend in animationBlends)
             {
-                animationBlend.animator.speed = 0;
-                animationBlend.animator.Play(animationBlend.animationName, 0, animationBlend.reverse ? 1 - t : t);
+                if (animationBlend.animator && animationBlend.animationName != "")
+                {
+                    animationBlend.animator.speed = 0;
+                    animationBlend.animator.Play(animationBlend.animationName, 0, animationBlend.reverse ? 1 - t : t);
+                }
             }
         }
     }
@@ -111,7 +116,7 @@ public class LinearDragable : Dragable
     }
 
 #if UNITY_EDITOR
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         if (pointA && pointB)
         {
