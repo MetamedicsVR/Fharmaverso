@@ -25,7 +25,7 @@ public class ControladorCaso1Surepal : MonoBehaviour
     public GameObject [] parentPasos;
     [Header("Primer Paso")]
     public Animator neveraAnimator;
-
+    public Animator pomoNevera;
     public GameObject dragAndDropAbrirNeveraVisual;
     public GameObject dragAndDropAbrirNeveraLogica;
 
@@ -39,10 +39,43 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public GameObject estucheparaPasoDos;
     public Animator mesaPupitre;
+    public GameObject cartuchoEnEstucheEnMesa;
 
     public GameObject sliderVisualSacarAguja;
     public GameObject sliderLogicaSacarAguja;
 
+    public GameObject sliderVisualAgujaEnMesa;
+    public GameObject sliderLogicaAgujaEnMesa;
+
+    public GameObject sliderVisualCartuchoALaMesa;
+    public GameObject sliderLogicaCartuchoALaMesa;
+
+    public GameObject sliderVisualOcultadorALaMesa;
+    public GameObject sliderLogicaOcultadorALaMesa;
+
+    [Header("Tercer Paso")]
+    public GameObject SM_SurepalParaPaso3;
+    public GameObject SM_SurepalEnAnimacionAborrarParaPaso3;
+    public GameObject SM_SurepalEstuche;
+    public GameObject sliderVisualSacarSurepal;
+    public GameObject sliderLogicaSacarSurepal;
+    public GameObject sliderVisualSacarTaponSurepal;
+    public GameObject sliderLogicaEnSurepalSacarTapon;
+
+
+    public GameObject capuchonConDraggable;
+
+    public GameObject capuchonParaVolverALaMesa;
+
+    public GameObject sliderVisualTaponAEstuche;
+    public GameObject sliderLogicaTaponAEstuche;
+
+    public Transform anilloDeCierreSurePalPaso3;
+
+
+    public GameObject sliderVisualDesenrroscaAnillo;
+
+    public GameObject sliderLogicoDesenrroscaAnillo;
 
     #region Auxiliares
 
@@ -141,6 +174,20 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     #endregion
 
+    #region DEBUG
+
+     void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Time.timeScale = 20f;
+        }
+        else if (Input.GetKeyUp(KeyCode.Space))
+        {
+            Time.timeScale = 1f;
+        }
+    }
+    #endregion
 
 
     #region ReconocerDispositivo
@@ -176,6 +223,16 @@ public class ControladorCaso1Surepal : MonoBehaviour
         ChangeAndShowConsejo("Selecciona el asa y arrastra");
     }
 
+    public void BajarPomoNevera() 
+    {
+        pomoNevera.CrossFade("BajaPomoNevera",0.5f);
+    }
+
+    public void SubirPomoNevera()
+    {
+        pomoNevera.CrossFade("SubePomoNevera", 0.5f);
+    }
+
     public void SlideNeveraTerminado() 
     {
         TurnOffOutlines(neveraAnimator.transform);
@@ -201,7 +258,7 @@ public class ControladorCaso1Surepal : MonoBehaviour
         neveraAnimator.Play("NeveraSeCierraYAleja");
         surepalParaAnimacionFueraDeNevera.SetActive(true);
         parentPasos[2].SetActive(true);
-        surepalParaAnimacionFueraDeNevera.transform.parent = parentPasos[2].transform;
+        //surepalParaAnimacionFueraDeNevera.transform.parent = parentPasos[2].transform;
         surepalParaAnimacionFueraDeNevera.GetComponent<Animator>().Play("AcomodarEnMesa");
         surepalEnNevera.SetActive(false);
         MoveToMousePositionPanelMuyBien();
@@ -227,24 +284,111 @@ public class ControladorCaso1Surepal : MonoBehaviour
         sliderVisualSacarAguja.SetActive(true);
         sliderLogicaSacarAguja.SetActive(true);
         ChangeAndShowConsejo("Saca una aguja del estuche");
+    }
+
+    public void AgujasEnElAire() 
+    {
+        textoExplicacíon.text = textosDePasoEnOrden[4];
+        TurnOffOutlines(estucheparaPasoDos.transform);
+        sliderVisualAgujaEnMesa.SetActive(true);
+        sliderLogicaAgujaEnMesa.SetActive(true);
+        sliderVisualSacarAguja.SetActive(false);
+        sliderLogicaSacarAguja.SetActive(false);
+        ChangeAndShowConsejo("Coloca la aguja en la mesa");
 
     }
     public void ColocarAgujasEnMesa()
     {
-        
+        textoExplicacíon.text = textosDePasoEnOrden[5];
+        TurnOnOutlines(cartuchoEnEstucheEnMesa.transform);
+        sliderVisualAgujaEnMesa.SetActive(false);
+        sliderLogicaAgujaEnMesa.SetActive(false);
+        sliderVisualCartuchoALaMesa.SetActive(true);
+        sliderLogicaCartuchoALaMesa.SetActive(true);
+        ChangeAndShowConsejo("Coloca el cartucho sobre la mesa");
+        //enciende los nuevos sliders 
     }
-    public void SacarOcultadorAgujas() 
-    {
-    
-    }
-    public void ColocarAgujasEnMesaOcultadorAgujasEnMesa()
-    {
 
+    public void ColocarCartuchoEnMesa() 
+    {
+        TurnOffOutlines(cartuchoEnEstucheEnMesa.transform);
+        cartuchoEnEstucheEnMesa.GetComponent<Outline>().enabled = false;
+        textoExplicacíon.text = textosDePasoEnOrden[6];
+        sliderVisualCartuchoALaMesa.SetActive(false);
+        sliderLogicaCartuchoALaMesa.SetActive(false);
+        sliderVisualOcultadorALaMesa.SetActive(true); 
+        sliderLogicaOcultadorALaMesa.SetActive(true);
+        ChangeAndShowConsejo("Coloca el ocultador en la mesa");
+     
+    }
+
+    public void ColocarOcultadorAgujasEnMesa() 
+    {
+        textoExplicacíon.text = textosDePasoEnOrden[7];
+        TurnOffOutlines(estucheparaPasoDos.transform);
+        sliderVisualOcultadorALaMesa.SetActive(false);
+        sliderLogicaOcultadorALaMesa.SetActive(false);
+     
+        mesaPupitre.transform.parent = null;
+        parentPasos[2].SetActive(false);
+        parentPasos[3].SetActive(true);
+
+        Invoke(nameof(PrepararLogicaSacarSurepalDeEstuche),2);
+    }
+
+    public void PrepararLogicaSacarSurepalDeEstuche() 
+    {
+        ChangeAndShowConsejo("Saca tu Surepal");
+        sliderVisualSacarSurepal.SetActive(true);
+        sliderLogicaSacarSurepal.SetActive(true);
+    }
+
+    public void PrepararSurepalParaCapuchon() 
+    {
+        sliderVisualSacarSurepal.SetActive(false);
+        sliderLogicaSacarSurepal.SetActive(false);
+        SM_SurepalParaPaso3.SetActive(true);
+        SM_SurepalEnAnimacionAborrarParaPaso3.SetActive(false);
+        ChangeAndShowConsejo("Destapa tu Surepal");
+        sliderVisualSacarTaponSurepal.SetActive(true);
+        //sliderLogicaEnSurepalSacarTapon.SetActive(true);    
+    }
+
+    public void SacarCapuchonDeSurepal()
+    {
+        sliderVisualSacarTaponSurepal.SetActive(false);
+        capuchonConDraggable.SetActive(false);
+        capuchonParaVolverALaMesa.SetActive(true);
+        SM_SurepalParaPaso3.GetComponent<Animator>().Play("RetiraSurepalParaVisibilidad");
+        ChangeAndShowConsejo("Coloca el capuchón en el estuche");
+        sliderLogicaTaponAEstuche.SetActive(true);
+        sliderVisualTaponAEstuche.SetActive(true);
+
+
+    }
+
+    public void ColocartapaEnEstuche() 
+    {
+        textoExplicacíon.text = textosDePasoEnOrden[8];
+        sliderLogicaTaponAEstuche.SetActive(false);
+        sliderVisualTaponAEstuche.SetActive(false);
+        sliderVisualDesenrroscaAnillo.SetActive(true);
+        sliderLogicoDesenrroscaAnillo.SetActive(true);
+        SM_SurepalParaPaso3.GetComponent<Animator>().Play("SurepalHighLightCierre");
+        TurnOnOutlines(SM_SurepalParaPaso3.transform);
+
+    }
+
+    public void GirarAnilloDeCierre() 
+    {
+        print("Hasta aqui por hoy");
+        sliderVisualDesenrroscaAnillo.SetActive(false);
+        sliderLogicoDesenrroscaAnillo.SetActive(false);
     }
 
     public void SacarCartuchoDeHormona()
     {
-
+      
     }
 
     public void ColocarCartuchoDeHormonaEnMesa()
