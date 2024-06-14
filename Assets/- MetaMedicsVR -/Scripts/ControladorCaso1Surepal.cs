@@ -11,7 +11,7 @@ public class ControladorCaso1Surepal : MonoBehaviour
     public string[] textosDePasoEnOrden;
 
     public Animator panelConsejo;
-    [Header("PrimerPaso")]
+    [Header("Paso Zero ")]
     public Animator muestraSurepals;
 
     public GameObject paqueteEstucheInteraccion;
@@ -23,7 +23,7 @@ public class ControladorCaso1Surepal : MonoBehaviour
     public GameObject panelMuyBien;
 
     public GameObject [] parentPasos;
-    [Header("Segundo Paso")]
+    [Header("Primer Paso")]
     public Animator neveraAnimator;
 
     public GameObject dragAndDropAbrirNeveraVisual;
@@ -33,8 +33,15 @@ public class ControladorCaso1Surepal : MonoBehaviour
     public GameObject dragAndDropSacarSurepalLogica;
 
     public GameObject surepalEnNevera;
-  
-   
+
+    public GameObject surepalParaAnimacionFueraDeNevera;
+    [Header("Segundo Paso")]
+
+    public GameObject estucheparaPasoDos;
+    public Animator mesaPupitre;
+
+    public GameObject sliderVisualSacarAguja;
+    public GameObject sliderLogicaSacarAguja;
 
 
     #region Auxiliares
@@ -160,7 +167,7 @@ public class ControladorCaso1Surepal : MonoBehaviour
     {
         parentPasos[0].SetActive(false);
         parentPasos[1].SetActive(true);
-        Invoke(nameof(EnableSliderVisualNevera), 2);
+        Invoke(nameof(EnableSliderVisualNevera), 3);
     }
 
     public void EnableSliderVisualNevera() 
@@ -184,13 +191,23 @@ public class ControladorCaso1Surepal : MonoBehaviour
         dragAndDropSacarSurepalVisual.SetActive(true);
         dragAndDropSacarSurepalLogica.SetActive(true);
         ChangeAndShowConsejo("Selecciona el estuche y arrastra");
+        TurnOnOutlines(surepalEnNevera.transform);
     }
 
     public void SacarDispositivoDeNevera() 
     {
         dragAndDropSacarSurepalVisual.SetActive(false);
         dragAndDropSacarSurepalLogica.SetActive(false);
-        //surepalEnNevera.GetComponent<Animator>().Play("SacarEstucheDeNevera");
+        neveraAnimator.Play("NeveraSeCierraYAleja");
+        surepalParaAnimacionFueraDeNevera.SetActive(true);
+        parentPasos[2].SetActive(true);
+        surepalParaAnimacionFueraDeNevera.transform.parent = parentPasos[2].transform;
+        surepalParaAnimacionFueraDeNevera.GetComponent<Animator>().Play("AcomodarEnMesa");
+        surepalEnNevera.SetActive(false);
+        MoveToMousePositionPanelMuyBien();
+        Invoke(nameof(StartSacarPiezas), 2);
+        TurnOffOutlines(surepalEnNevera.transform);
+        //ANIMACION MESA CON DELAY
     }
 
     #endregion
@@ -198,16 +215,23 @@ public class ControladorCaso1Surepal : MonoBehaviour
     #region SacarPiezas
     public void StartSacarPiezas() 
     {
-    
+        mesaPupitre.Play("ApareceMesaPupitre");
+        Invoke(nameof(SacarAgujas), 4);
     }
 
     public void SacarAgujas() 
     {
-    
+        textoExplicacíon.text = textosDePasoEnOrden[3];
+        surepalParaAnimacionFueraDeNevera.gameObject.SetActive(false);
+        estucheparaPasoDos.gameObject.SetActive(true);
+        sliderVisualSacarAguja.SetActive(true);
+        sliderLogicaSacarAguja.SetActive(true);
+        ChangeAndShowConsejo("Saca una aguja del estuche");
+
     }
     public void ColocarAgujasEnMesa()
     {
-
+        
     }
     public void SacarOcultadorAgujas() 
     {
