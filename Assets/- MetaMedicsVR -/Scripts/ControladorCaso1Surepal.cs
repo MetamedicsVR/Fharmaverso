@@ -77,6 +77,18 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public GameObject sliderLogicoDesenrroscaAnillo;
 
+
+    public GameObject anilloDeCierrePaso3Sacar;
+
+    public GameObject sliderVisualSacaAnilloDeCierrePaso3;
+
+    public GameObject SM_SurepalParaPaso3FINAl;
+
+    public GameObject sliderVisuaSueltaRoscaAnillo;
+
+    public GameObject sliderLogicoSueltaRoscaAnillo;
+
+    public GameObject canvasEtiquetas;
     #region Auxiliares
 
     public void ChangeAndShowConsejo(string consejoTexto) 
@@ -151,6 +163,7 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public void MoveToMousePositionPanelMuyBien()
     {
+        CancelInvoke(nameof(DesactivarPanelMuyBien));
         panelMuyBien.SetActive(true);
         // Obtener la posición del ratón en la pantalla
         Vector2 mousePosition = Input.mousePosition;
@@ -164,6 +177,8 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
         // Mover el GameObject a la posición calculada
         panelMuyBien.GetComponent<RectTransform>().anchoredPosition = localPoint;
+        panelMuyBien.GetComponentInChildren<Animator>().Play("Pressed");
+        panelMuyBien.GetComponentInChildren<AudioSource>().Play();
         Invoke(nameof(DesactivarPanelMuyBien), 1.5f);
     }
 
@@ -376,6 +391,7 @@ public class ControladorCaso1Surepal : MonoBehaviour
         sliderLogicoDesenrroscaAnillo.SetActive(true);
         SM_SurepalParaPaso3.GetComponent<Animator>().Play("SurepalHighLightCierre");
         TurnOnOutlines(SM_SurepalParaPaso3.transform);
+        ChangeAndShowConsejo("Gira el anillo de cierre");
 
     }
 
@@ -384,11 +400,29 @@ public class ControladorCaso1Surepal : MonoBehaviour
         print("Hasta aqui por hoy");
         sliderVisualDesenrroscaAnillo.SetActive(false);
         sliderLogicoDesenrroscaAnillo.SetActive(false);
+        sliderVisualSacaAnilloDeCierrePaso3.SetActive(true);
+        anilloDeCierrePaso3Sacar.GetComponent<BoxCollider>().enabled = true;
+        anilloDeCierrePaso3Sacar.GetComponent<LinearDragable>().canInteract = true;
+        ChangeAndShowConsejo("Extrae el anillo de cierre");
     }
 
-    public void SacarCartuchoDeHormona()
+    public void SacarAnilloDeCierreDeSurepal() 
     {
-      
+        sliderVisualSacaAnilloDeCierrePaso3.SetActive(false);
+        sliderVisuaSueltaRoscaAnillo.SetActive(true);
+        sliderLogicoSueltaRoscaAnillo.SetActive(true);
+        SM_SurepalParaPaso3FINAl.SetActive(true);
+        //anilloDeCierreSurePalPaso3.gameObject.SetActive(false);
+        SM_SurepalParaPaso3.SetActive(false);
+    }
+
+    public void MoverAnilloDeCierreALaMesa() 
+    {
+        sliderVisuaSueltaRoscaAnillo.SetActive(false);
+        sliderLogicoSueltaRoscaAnillo.SetActive(false);
+        textoExplicacíon.text = textosDePasoEnOrden[9];
+        canvasEtiquetas.SetActive(true);
+        Camera.main.gameObject.GetComponent<Animator>().Play("CamaraCloseUp");
     }
 
     public void ColocarCartuchoDeHormonaEnMesa()
