@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/- MetaMedicsVR -/Scenes/Jesus/Fharmaverso.unity
     guid: c6675cfc1acfaa046b9ea5ea4692662b
+  - enabled: 1
+    path: Assets/- MetaMedicsVR -/Scenes/Helio/Simulacion 01.unity
+    guid: 2a65ef90d7d12f844bac2afe0488b396
   m_configObjects: {}
