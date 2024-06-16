@@ -77,7 +77,7 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public GameObject sliderLogicoDesenrroscaAnillo;
 
-
+   
     public GameObject anilloDeCierrePaso3Sacar;
 
     public GameObject sliderVisualSacaAnilloDeCierrePaso3;
@@ -89,6 +89,30 @@ public class ControladorCaso1Surepal : MonoBehaviour
     public GameObject sliderLogicoSueltaRoscaAnillo;
 
     public GameObject canvasEtiquetas;
+    [Header("CanvasObjetos")]
+
+    public GameObject parentIndicadorAguja;
+    public GameObject parentIndicadorCartucho;
+    public GameObject parentIndicadorOcultador;
+    public GameObject parentIndicadorAnilloDeCierre;
+    public GameObject parentIndicadorTapa;
+    public GameObject parentIndicadorSurepal;
+    public GameObject parentIndicadorContenedorAgujas;
+    public GameObject parentIndicadorToallitasAlcoholicas;
+    [Header("CinematicaToallitas")]
+    public GameObject toallitasParent;
+
+    public GameObject disposalCan;
+
+    [Header("CambioPaso4")]
+    public GameObject piezasSueltasSurepalConEstuche;
+    [Header("CuartoPaso")]
+    public GameObject linearDraggableLogicaCartucho;
+    public GameObject linearDraggableVisualCartucho;
+
+    public GameObject linearDraggableLogicoAnilloeCierre;
+    public GameObject linearDraggableVisualAnilloeCierre;
+    
     #region Auxiliares
 
     public void ChangeAndShowConsejo(string consejoTexto) 
@@ -174,12 +198,11 @@ public class ControladorCaso1Surepal : MonoBehaviour
             mousePosition,
             null,
             out Vector2 localPoint);
-
         // Mover el GameObject a la posición calculada
         panelMuyBien.GetComponent<RectTransform>().anchoredPosition = localPoint;
         panelMuyBien.GetComponentInChildren<Animator>().Play("Pressed");
         panelMuyBien.GetComponentInChildren<AudioSource>().Play();
-        Invoke(nameof(DesactivarPanelMuyBien), 1.5f);
+        Invoke(nameof(DesactivarPanelMuyBien), 0.8f);
     }
 
     public void DesactivarPanelMuyBien() 
@@ -397,7 +420,6 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public void GirarAnilloDeCierre() 
     {
-        print("Hasta aqui por hoy");
         sliderVisualDesenrroscaAnillo.SetActive(false);
         sliderLogicoDesenrroscaAnillo.SetActive(false);
         sliderVisualSacaAnilloDeCierrePaso3.SetActive(true);
@@ -426,69 +448,163 @@ public class ControladorCaso1Surepal : MonoBehaviour
         Camera.main.gameObject.GetComponent<Animator>().Play("CamaraCloseUp");
     }
 
+
+    public void CallClickAguja()
+    {
+        Invoke(nameof(ClickAguja),1f);
+        MoveToMousePositionPanelMuyBien();
+        parentIndicadorAguja.gameObject.SetActive(false);
+    }
+
+    public void ClickAguja() 
+    {
+        parentIndicadorCartucho.gameObject.SetActive(true);
+    }
+
+    public void CallClickCartucho()
+    {
+        Invoke(nameof(ClickCartucho), 1f);
+        MoveToMousePositionPanelMuyBien();
+        parentIndicadorCartucho.gameObject.SetActive(false);
+    }
+    public void ClickCartucho()
+    {
+        parentIndicadorOcultador.gameObject.SetActive(true);
+    }
+    public void CallClickOcultador()
+    {
+        Invoke(nameof(ClickOcultador), 1f);
+        MoveToMousePositionPanelMuyBien();
+        parentIndicadorOcultador.gameObject.SetActive(false);
+    }
+    public void ClickOcultador()
+    {
+        parentIndicadorAnilloDeCierre.gameObject.SetActive(true);
+    }
+
+    public void CallAnilloDeCierre()
+    {
+        Invoke(nameof(ClickAnilloDeCierre), 1f);
+        MoveToMousePositionPanelMuyBien();
+        parentIndicadorAnilloDeCierre.gameObject.SetActive(false);
+    }
+    public void ClickAnilloDeCierre()
+    {
+        parentIndicadorTapa.gameObject.SetActive(true);
+    }
+    public void CallClickTapa()
+    {
+        Invoke(nameof(ClickTapa), 1f);
+        MoveToMousePositionPanelMuyBien();
+        parentIndicadorTapa.gameObject.SetActive(false);
+    }
+
+    public void ClickTapa()
+    {
+        parentIndicadorSurepal.gameObject.SetActive(true);
+    }
+
+    public void CallClickSurepal()
+    {
+        Invoke(nameof(ClickSurepal), 1f);
+        MoveToMousePositionPanelMuyBien();
+        parentIndicadorSurepal.gameObject.SetActive(false);
+    }
+
+    public void ClickSurepal()
+    {
+
+        textoExplicacíon.text = textosDePasoEnOrden[10];
+        parentPasos[4].gameObject.SetActive(true);
+        Invoke(nameof(TraerContenedorAgujas), 1f);
+    }
+
+
+
     public void TurnOnEtiquetas() 
     {
-        canvasEtiquetas.SetActive(true);
-       
+        canvasEtiquetas.SetActive(true);  
     }
 
-    public void ColocarCartuchoDeHormonaEnMesa()
+    public void TraerContenedorAgujas() 
     {
-
+        disposalCan.GetComponent<Animator>().Play("ApareceDisposalDeAgujas");
+        Invoke(nameof(ShowIndicadorAgujas),3f);
     }
 
-    public void SacaSurepal()
+    public void ShowIndicadorAgujas() 
     {
-
+        textoExplicacíon.text = textosDePasoEnOrden[10];
+        parentIndicadorContenedorAgujas.gameObject.SetActive(true);
     }
 
-    public void QuitaTapaASurepal()
+    public void CallClickContenedorAgujas()
     {
-
+        textoExplicacíon.text = textosDePasoEnOrden[11];
+        Invoke(nameof(ClickContenedorAgujas), 1f);
+        MoveToMousePositionPanelMuyBien();
+        parentIndicadorContenedorAgujas.gameObject.SetActive(false);
+        BajarToallitas();
     }
 
-    public void ColocarTapaASurepalEnEstuche()
+    public void ClickContenedorAgujas()
     {
-
+        Invoke(nameof(EncenderToallitasBoton), 3);
     }
 
-    public void DesenroscarAnilloDeCierreSurepal()
+    public void EncenderToallitasBoton() 
     {
-
+        parentIndicadorToallitasAlcoholicas.gameObject.SetActive(true);
     }
-
-    public void ColocarAnilloDeCierreSurepalEnMesa()
+    public void CallClickToallitas()
     {
-
-    }
-
-    public void ColocarSurepalEnMesa()
-    {
-
-    }
-
-    public void DisplayNombreDeTodasLasPartes() 
-    {
+        Invoke(nameof(ClickToallitas), 1f);
+        MoveToMousePositionPanelMuyBien();
+        parentIndicadorToallitasAlcoholicas.gameObject.SetActive(false);
     
     }
 
-    public void MostrarContenedorAgujas()
+    public void ClickToallitas()
     {
-
+        parentIndicadorToallitasAlcoholicas.gameObject.SetActive(false);
+        DarCambiazoPaso4();
+        textoExplicacíon.text = textosDePasoEnOrden[12];
     }
-    public void MostrarToallitasAlcoholicas()
+
+    public void DarCambiazoPaso4() 
     {
-
+        SM_SurepalParaPaso3FINAl.SetActive(false);
+        SM_SurepalEstuche.SetActive(false);
+        piezasSueltasSurepalConEstuche.SetActive(true);
+        parentPasos[5].SetActive(true);
+        toallitasParent.transform.parent = parentPasos[5].transform.parent;
+        disposalCan.transform.parent = parentPasos[5].transform.parent;
+        parentPasos[4].SetActive(false);
+        Invoke(nameof(EnciendeDraggablesParaAnilloDeCierrePaso4), 3);
     }
+
+    public void BajarToallitas() 
+    {
+        toallitasParent.GetComponent<Animator>().Play("AparecenToallitas");
+    }
+
+
 
     #endregion
 
     #region PrepararSurepal
 
-
-    public void StartPrepararSurepal()
+    public void EnciendeDraggablesParaAnilloDeCierrePaso4() 
     {
-
+        linearDraggableLogicoAnilloeCierre.SetActive(true);
+        linearDraggableVisualAnilloeCierre.SetActive(true);
+    }
+    public void ElevarAnilloDeCierreAlAirePaso4()
+    {
+        linearDraggableLogicoAnilloeCierre.SetActive(false);
+        linearDraggableVisualAnilloeCierre.SetActive(false);
+        linearDraggableLogicaCartucho.gameObject.SetActive(true);
+        linearDraggableVisualCartucho.gameObject.SetActive(true);
     }
 
     public void AparecenAnilloDeCierreConCartuchoAlineados()
