@@ -149,7 +149,18 @@ public class ControladorCaso1Surepal : MonoBehaviour
     [Header("Meter Aguja")]
     public GameObject linearDraggableVisualAgujaEnSurepal;
     public GameObject linearDraggableLogicaAgujaEnSurepal;
+    [Header("Rotar Aguja")]
+    public GameObject linearDraggableVisualRotarAgujaEnSurepal;
+    public GameObject linearDraggableLogicaRotarAgujaEnSurepal;
+    [Header("Sacar Capuchon")]
+    public GameObject linearDraggableVisualSacaCapuchaAgujaEnSurepal;
+    public GameObject linearDraggableLogicaSacaCapuchaAgujaEnSurepal;
+    [Header("ColocarCubreAgujas")]
+    public GameObject CubreAgujasSuelto;
+    public GameObject CubreAgujasEnEstucheABorrar;
 
+    public GameObject linearDraggableVisualColocaOcultador;
+    public GameObject linearDraggableLogicaColocaOcultador;
 
     #region Auxiliares
 
@@ -788,31 +799,35 @@ public class ControladorCaso1Surepal : MonoBehaviour
     {
         linearDraggableVisualAgujaEnSurepal.SetActive(false);
         linearDraggableLogicaAgujaEnSurepal.SetActive(false);
+        linearDraggableVisualRotarAgujaEnSurepal.SetActive(true);
+        linearDraggableLogicaRotarAgujaEnSurepal.SetActive(true);
     }
 
     public void GiraAgujaEmpaquetadaEnSurepal() 
     {
-    
+        linearDraggableVisualRotarAgujaEnSurepal.SetActive(false);
+        linearDraggableLogicaRotarAgujaEnSurepal.SetActive(false);
+        linearDraggableVisualSacaCapuchaAgujaEnSurepal.SetActive(true);
+        linearDraggableLogicaSacaCapuchaAgujaEnSurepal.SetActive(true);
     }
 
     public void DragAndDropSacaEnvoltorioAgujaDeSurepal() 
     {
-    
-    }
-
-    public void DejarEnvoltorioDeAgujaEnLaMesa() 
-    {
-    
-    }
-
-    public void MostrarOcultadorDeAgujasAlineadoConSurepal() 
-    {
-    
+        linearDraggableVisualSacaCapuchaAgujaEnSurepal.SetActive(false);
+        linearDraggableLogicaSacaCapuchaAgujaEnSurepal.SetActive(false);
+        linearDraggableVisualColocaOcultador.SetActive(true);
+        linearDraggableLogicaColocaOcultador.SetActive(true);
+        agujaAAbrir.GetComponent<Animator>().Play("DejaCapuchonEnMesa");
+        agujaAAbrir.GetComponent<Animator>().speed = 1;
+        //Cartel de que necesitará luego el capucho
+        CubreAgujasSuelto.SetActive(true);
+        CubreAgujasEnEstucheABorrar.SetActive(false);
     }
 
     public void DragAndDropOcultadorDeagujaEnSurepal() 
     {
-    
+        linearDraggableVisualColocaOcultador.SetActive(false);
+        linearDraggableLogicaColocaOcultador.SetActive(false);
     }
 
     public void GiraBotonDosisSurepal() 
