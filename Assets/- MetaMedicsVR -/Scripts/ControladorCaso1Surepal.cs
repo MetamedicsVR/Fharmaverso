@@ -421,8 +421,15 @@ public class ControladorCaso1Surepal : MonoBehaviour
         sliderVisuaSueltaRoscaAnillo.SetActive(false);
         sliderLogicoSueltaRoscaAnillo.SetActive(false);
         textoExplicacíon.text = textosDePasoEnOrden[9];
-        canvasEtiquetas.SetActive(true);
+        ChangeAndShowConsejo("Identifica las partes del Surepal");
+        Invoke(nameof(TurnOnEtiquetas), 2);
         Camera.main.gameObject.GetComponent<Animator>().Play("CamaraCloseUp");
+    }
+
+    public void TurnOnEtiquetas() 
+    {
+        canvasEtiquetas.SetActive(true);
+       
     }
 
     public void ColocarCartuchoDeHormonaEnMesa()
