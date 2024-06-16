@@ -106,13 +106,35 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     [Header("CambioPaso4")]
     public GameObject piezasSueltasSurepalConEstuche;
-    [Header("CuartoPaso")]
+    [Header("QuintoPaso")]
     public GameObject linearDraggableLogicaCartucho;
     public GameObject linearDraggableVisualCartucho;
 
     public GameObject linearDraggableLogicoAnilloeCierre;
     public GameObject linearDraggableVisualAnilloeCierre;
-    
+
+
+    public GameObject linearDraggableLogicaColocaCartucho;
+    public GameObject linearDraggableVisualColocaCartucho;
+
+    public GameObject linearDraggableLogicaGIRACartucho;
+    public GameObject linearDraggableVisualGIRACartucho;
+
+    public GameObject linearDraggableLogicaClickCartucho;
+    public GameObject linearDraggableVisualClickCartucho;
+    [Header("SextoPaso")]
+    public GameObject surepalPaso6;
+    public GameObject anilloDeCierrePaso6;
+    public GameObject cartuchoEnAnilloDECierre;
+    public GameObject cartuchoEnAnilloDEABorrar;
+
+    public GameObject linearDraggableLogicaEncajarAnillo;
+    public GameObject linearDraggableVisualEncajarAnillo;
+
+
+    public GameObject linearDraggableVisualRotarAnilloEnSurepal;
+    public GameObject linearDraggableLogicaRotarAnilloEnSurepal;
+
     #region Auxiliares
 
     public void ChangeAndShowConsejo(string consejoTexto) 
@@ -569,6 +591,7 @@ public class ControladorCaso1Surepal : MonoBehaviour
         parentIndicadorToallitasAlcoholicas.gameObject.SetActive(false);
         DarCambiazoPaso4();
         textoExplicacíon.text = textosDePasoEnOrden[12];
+        MoveToMousePositionPanelMuyBien();
     }
 
     public void DarCambiazoPaso4() 
@@ -605,41 +628,73 @@ public class ControladorCaso1Surepal : MonoBehaviour
         linearDraggableVisualAnilloeCierre.SetActive(false);
         linearDraggableLogicaCartucho.gameObject.SetActive(true);
         linearDraggableVisualCartucho.gameObject.SetActive(true);
+        MoveToMousePositionPanelMuyBien();
     }
 
-    public void AparecenAnilloDeCierreConCartuchoAlineados()
+    public void AlinearCartuchoConAnilloDeCierre()
     {
+        linearDraggableLogicaCartucho.gameObject.SetActive(false);
+        linearDraggableVisualCartucho.gameObject.SetActive(false);
 
+        linearDraggableLogicaColocaCartucho.gameObject.SetActive(true);
+        linearDraggableVisualColocaCartucho.gameObject.SetActive(true);
+        MoveToMousePositionPanelMuyBien();
     }
 
-    public void DragAndDropCartuchoACierre()
+    public void AhoraTocaGirar() 
     {
-
+        linearDraggableLogicaColocaCartucho.gameObject.SetActive(false);
+        linearDraggableVisualColocaCartucho.gameObject.SetActive(false);
+        linearDraggableLogicaGIRACartucho.SetActive(true);
+        linearDraggableVisualGIRACartucho.SetActive(true);
+        MoveToMousePositionPanelMuyBien();
     }
 
-    public void GirarCartuchoColocadoALaIzquierda()
+    public void CartuchoGirado() 
     {
 
+        linearDraggableLogicaGIRACartucho.SetActive(false);
+        linearDraggableVisualGIRACartucho.SetActive(false);
+        linearDraggableLogicaClickCartucho.SetActive(true);
+        linearDraggableVisualClickCartucho.SetActive(true);
+        MoveToMousePositionPanelMuyBien();
     }
 
-    public void TirarHaciaAbajoDeCartuchoColocado()
+    public void CartuchoClick()
     {
-
+        print("CartuchoClicado");
+        linearDraggableLogicaClickCartucho.SetActive(false);
+        linearDraggableVisualClickCartucho.SetActive(false);
+        surepalPaso6.GetComponent<Animator>().Play("ColocarSurepalEnPosicionParaAnilloDeCierre");
+        anilloDeCierrePaso6.GetComponent<Animator>().Play("AlinearAnilloDeCierreConSurepal");
+        anilloDeCierrePaso6.GetComponent<Animator>().speed = 1;
+        MoveToMousePositionPanelMuyBien();
+        cartuchoEnAnilloDECierre.SetActive(true);
+        cartuchoEnAnilloDEABorrar.SetActive(false);
+        Invoke(nameof(PrepararEncajeCierreYSurepal),2);
     }
 
-    public void AparecenSurepalYAnilloDeCierreAlineados()
-    {
 
+    public void PrepararEncajeCierreYSurepal() 
+    {
+      
+        linearDraggableLogicaEncajarAnillo.SetActive(true);
+        linearDraggableVisualEncajarAnillo.SetActive(true);
     }
-
-    public void DragAndDropEncajaAnilloDeCierreConSurepal()
+    public void DragAndDropAnilloDeCierreASurepal()
     {
+        linearDraggableLogicaEncajarAnillo.SetActive(false);
+        linearDraggableVisualEncajarAnillo.SetActive(false);
 
+        linearDraggableVisualRotarAnilloEnSurepal.SetActive(true);
+        linearDraggableLogicaRotarAnilloEnSurepal.SetActive(true);
+        MoveToMousePositionPanelMuyBien();
     }
 
     public void GiraAnilloDeCierreEnSurepal()
     {
-
+        linearDraggableVisualRotarAnilloEnSurepal.SetActive(false);
+        linearDraggableLogicaRotarAnilloEnSurepal.SetActive(false);
     }
 
     #endregion
