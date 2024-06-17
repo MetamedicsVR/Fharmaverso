@@ -165,7 +165,34 @@ public class ControladorCaso1Surepal : MonoBehaviour
     public GameObject capuchonSuelto;
     public GameObject capuchonABorrar;
 
+    [Header("GirarDosisFinal")]
+    public Animator surepalDefinitivoFinal;
+    public GameObject linearDraggableVisualGirarDosis;
+    public GameObject linearDraggableLogicaGirarDosis;
+
+    public TextMeshProUGUI textTop;
+    public TextMeshProUGUI textMid;
+    public TextMeshProUGUI textBot;
+
+    private string topText = " ";
+    private float midValue = 0f;
+    private float botValue = 0.2f;
+
+
     #region Auxiliares
+
+    public void SetTopText(int text) 
+    {
+        textTop.text = text.ToString();
+    }
+    public void SetMidText(string text)
+    {
+        textMid.text = text.ToString();
+    }
+    public void SetBotText(string text)
+    {
+        textBot.text = text.ToString();
+    }
 
     public void ChangeAndShowConsejo(string consejoTexto) 
     {
@@ -850,11 +877,21 @@ public class ControladorCaso1Surepal : MonoBehaviour
         CubreAgujasSuelto.SetActive(false);
         SurepalPasoLimpiarPunta.SetActive(false);
         agujaAAbrir.SetActive(false);
+        parentPasos[7].SetActive(true);
+        Invoke(nameof(PrepararBotonDosisGiro), 6);
+    }
+
+    public void PrepararBotonDosisGiro() 
+    {
+        linearDraggableVisualGirarDosis.SetActive(true);
+        linearDraggableLogicaGirarDosis.SetActive(true);
     }
 
     public void GiraBotonDosisSurepal() 
     {
-    
+        linearDraggableVisualGirarDosis.SetActive(false);
+        linearDraggableLogicaGirarDosis.SetActive(false);
+        surepalDefinitivoFinal.Play("GirarDosisSurepal");
     }
 
     public void ElegirParteDelCuerpoParaPinchar() 
