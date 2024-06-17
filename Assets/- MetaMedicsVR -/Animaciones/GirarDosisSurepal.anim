@@ -124,7 +124,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 7.983333
-        value: {x: -0.24, y: -0.088, z: 0.099}
+        value: {x: -0.079, y: -0.138, z: 0.067}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -270,7 +270,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 7.983333
-        value: -0.24
+        value: -0.079
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -318,7 +318,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 7.983333
-        value: -0.088
+        value: -0.138
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -366,7 +366,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 7.983333
-        value: 0.099
+        value: 0.067
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -768,7 +768,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Surepal.005
+    path: 
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -780,19 +780,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Surepal.005
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Surepal.005
+    path: 
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -815,8 +803,20 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Surepal.005
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: 
+    path: Surepal.005
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -828,7 +828,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: 
+    path: Surepal.005
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -982,21 +982,21 @@ AnimationClip:
     floatParameter: 1.2
     intParameter: 0
     messageOptions: 0
-  - time: 4.883333
+  - time: 4.616667
     functionName: SetBotText
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 1.8
     intParameter: 0
     messageOptions: 0
-  - time: 4.883333
+  - time: 4.616667
     functionName: SetMidText
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 1.6
     intParameter: 0
     messageOptions: 0
-  - time: 4.883333
+  - time: 4.616667
     functionName: SetTopText
     data: 
     objectReferenceParameter: {fileID: 0}

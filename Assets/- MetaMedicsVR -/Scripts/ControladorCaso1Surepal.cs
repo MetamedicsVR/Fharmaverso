@@ -178,6 +178,24 @@ public class ControladorCaso1Surepal : MonoBehaviour
     private float midValue = 0f;
     private float botValue = 0.2f;
 
+    public GameObject NinioParaMedicar;
+
+    [Header("Medicarse")]
+    public Animator canvasElegirAnimator;
+    public GameObject linearDraggableVisualLimpiaZona;
+    public GameObject linearDraggableLogicaLimpiaZona;
+
+    public GameObject linearDraggableVisualEcharSurepalHaciaAtras;
+    public GameObject linearDraggableLogicaEcharSurepalHaciaAtras;
+
+    public GameObject linearDraggableVisualSacarProtectorDeAguja;
+    public GameObject linearDraggableLogicaSacarProtectorDeAguja;
+
+    public GameObject linearDraggableVisualPincharSurepal;
+    public GameObject linearDraggableLogicaPincharSurepal;
+
+    public GameObject linearDraggableVisualPulsarBotonEnSurepal;
+    public GameObject linearDraggableLogicaPulsarBotonEnSurepal;
 
     #region Auxiliares
 
@@ -322,7 +340,7 @@ public class ControladorCaso1Surepal : MonoBehaviour
         {
             surepalErroneosARetirar[i].GetComponent<Clickable>().enabled = false;
         }
-        Invoke(nameof(AparecerNevera),10);
+        Invoke(nameof(AparecerNevera),5);
     }
 
     public void AparecerNevera() 
@@ -892,12 +910,30 @@ public class ControladorCaso1Surepal : MonoBehaviour
         linearDraggableVisualGirarDosis.SetActive(false);
         linearDraggableLogicaGirarDosis.SetActive(false);
         surepalDefinitivoFinal.Play("GirarDosisSurepal");
+        Invoke(nameof(ElegirParteDelCuerpoParaPinchar),8);
     }
 
     public void ElegirParteDelCuerpoParaPinchar() 
     {
-    
+        parentPasos[8].SetActive(true);
     }
+
+    public void TransicionACuerpo() 
+    {
+        mesaPupitre.Play("PupitreSaleDePlano");
+        canvasElegirAnimator.Play("SalirDePlano");
+        Camera.main.GetComponent<Animator>().Play("CameraCloseUpBarriga");
+        NinioParaMedicar.gameObject.SetActive(true);
+        Invoke(nameof(CallAnimationNinioMedicarBarrigaArriba),1.3f);
+    }
+
+    public void CallAnimationNinioMedicarBarrigaArriba() 
+    {
+        NinioParaMedicar.GetComponent<Animator>().Play("NinioSeSubeCamiseta");
+        toallitasParent.GetComponent<Animator>().Play("ToallitaSePoneCercaDeCuerpo");
+        Invoke(nameof(PreparaLimpiadoDeToallas),4);
+    }
+
 
 
 
@@ -906,40 +942,75 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     #region PoniendomeLaInyeccion
 
-    public void StartPoninedomeLaInyeccion() 
+    public void PreparaLimpiadoDeToallas()
     {
-    
+        linearDraggableVisualLimpiaZona.SetActive(true);
+        linearDraggableLogicaLimpiaZona.SetActive(true);
     }
 
-    public void MostrarToallitaConAlcohol() 
-    {
-    
-    }
 
-    public void DragAndDropToallitaAlcoholEnParteDelCuerpoBrazo() 
+    public void DragAndDropToallitaAlcoholEnParteDelCuerpoBarriga() 
     {
-    
+        linearDraggableVisualLimpiaZona.SetActive(false);
+        linearDraggableLogicaLimpiaZona.SetActive(false);
+        toallitasParent.GetComponent<Animator>().Play("ToallitaSaleDePlano");
+        toallitasParent.GetComponent<Animator>().speed = 1;
+        Invoke(nameof(MuestraSurepalConParteDelCuerpoBrazo),2);
     }
 
     public void MuestraSurepalConParteDelCuerpoBrazo()
     {
+        surepalDefinitivoFinal.GetComponent<Animator>().Play("SurePalFinalApareceCercaDeCuerpo");
+        Invoke(nameof(PreparaEcharAtrasOcultadorAguja),6);
+    }
 
+    public void PreparaEcharAtrasOcultadorAguja() 
+    {
+        linearDraggableVisualEcharSurepalHaciaAtras.SetActive(true);
+        linearDraggableLogicaEcharSurepalHaciaAtras.SetActive(true);
     }
 
     public void EchaHaciaAtrasOcultadorDeAguja() 
     {
-    
+        linearDraggableVisualEcharSurepalHaciaAtras.SetActive(false);
+        linearDraggableLogicaEcharSurepalHaciaAtras.SetActive(false);
+        linearDraggableVisualSacarProtectorDeAguja.SetActive(true);
+        linearDraggableLogicaSacarProtectorDeAguja.SetActive(true);
+
     }
 
-    public void DragAndDropSacarProtectorDeAguja() 
+
+    public void PrepararSurepalParaPinchar() 
     {
-    
+        linearDraggableVisualSacarProtectorDeAguja.SetActive(false);
+        linearDraggableLogicaSacarProtectorDeAguja.SetActive(false);
+        surepalDefinitivoFinal.Play("PrepararSurepalParaPinchar");
+        surepalDefinitivoFinal.speed = 1;
+        Invoke(nameof(SacarDragAndDropParaPinchar), 4f);
     }
 
-    public void MostrarSetupPinchadoBrazo() 
+    public void SacarDragAndDropParaPinchar() 
     {
-    
+        linearDraggableVisualPincharSurepal.SetActive(true);
+        linearDraggableLogicaPincharSurepal.SetActive(true);
     }
+
+   
+    public void PincharBarriga() 
+    {
+        linearDraggableVisualPincharSurepal.SetActive(false);
+        linearDraggableLogicaPincharSurepal.SetActive(false);
+        linearDraggableVisualPulsarBotonEnSurepal.SetActive(true);
+        linearDraggableLogicaPulsarBotonEnSurepal.SetActive(true);
+    }
+    public void RetirarSurepal()
+    {
+        linearDraggableVisualPulsarBotonEnSurepal.SetActive(false);
+        linearDraggableLogicaPulsarBotonEnSurepal.SetActive(false);
+        surepalDefinitivoFinal.GetComponent<Animator>().Play("RetirarSurepal");
+        surepalDefinitivoFinal.GetComponent<Animator>().speed = 1;
+    }
+
 
     public void SelecionarAnguloPinchado() 
     {
