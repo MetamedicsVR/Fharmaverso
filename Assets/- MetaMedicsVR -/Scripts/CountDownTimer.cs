@@ -27,7 +27,7 @@ public class CountDownTimer : MonoBehaviour
                 counting = false;
                 timerEnded.Invoke();
             }
-            remainingTMP.text = remainingTime.ToString("F2");
+            remainingTMP.text = remainingTime.ToString("F0");
         }
     }
 
@@ -47,6 +47,8 @@ public class CountDownTimer : MonoBehaviour
         {
             counting = false;
             timerStopped.Invoke();
+            remainingTime = totalTime;
+            remainingTMP.text = remainingTime.ToString("F0");
         }
     }
 

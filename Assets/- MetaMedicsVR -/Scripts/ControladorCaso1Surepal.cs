@@ -207,6 +207,30 @@ public class ControladorCaso1Surepal : MonoBehaviour
     public GameObject linearDraggableLogicaSacarSurepal;
 
     #region Auxiliares
+    public CountDownTimer countDownTimer;
+
+    public void CheckDistance(float value)
+    {
+        if (value > 0.85f)
+        {
+            if (!countDownTimer.IsCounting())
+            {
+                countDownTimer.StartTimer();
+                surepalDefinitivoFinal.GetComponentInChildren<Animator>().Rebind();
+                surepalDefinitivoFinal.GetComponentInChildren<Animator>().Play("AguantarBotonSurepal");
+                surepalDefinitivoFinal.GetComponentInChildren<Animator>().speed = 1;
+            }
+        }
+        else
+        {
+            if (countDownTimer.IsCounting())
+            {
+                countDownTimer.StopTimer();
+                surepalDefinitivoFinal.GetComponentInChildren<Animator>().speed = 0;
+            }
+        }
+    }
+
 
     public void SetTopText(int text)
     {
@@ -992,6 +1016,11 @@ public class ControladorCaso1Surepal : MonoBehaviour
       
         surepalDefinitivoFinal.GetComponent<Animator>().Play("RetirarSurepal");
         surepalDefinitivoFinal.GetComponent<Animator>().speed = 1;
+    }
+
+    public void TimerDone()
+    {
+        linearDraggableLogicaPulsarBotonEnSurepal.GetComponentInChildren<LinearDragable>().canInteract = false;
     }
 
 
