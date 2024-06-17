@@ -28,10 +28,8 @@ public class ControladorCaso1Surepal : MonoBehaviour
     [Header("Primer Paso")]
     public Animator neveraAnimator;
     public Animator pomoNevera;
-    public GameObject dragAndDropAbrirNeveraVisual;
     public GameObject dragAndDropAbrirNeveraLogica;
 
-    public GameObject dragAndDropSacarSurepalVisual;
     public GameObject dragAndDropSacarSurepalLogica;
 
     public GameObject surepalEnNevera;
@@ -43,16 +41,16 @@ public class ControladorCaso1Surepal : MonoBehaviour
     public Animator mesaPupitre;
     public GameObject cartuchoEnEstucheEnMesa;
 
-    public GameObject sliderVisualSacarAguja;
+
     public GameObject sliderLogicaSacarAguja;
 
-    public GameObject sliderVisualAgujaEnMesa;
+
     public GameObject sliderLogicaAgujaEnMesa;
 
-    public GameObject sliderVisualCartuchoALaMesa;
+ 
     public GameObject sliderLogicaCartuchoALaMesa;
 
-    public GameObject sliderVisualOcultadorALaMesa;
+
     public GameObject sliderLogicaOcultadorALaMesa;
 
     public GameObject[] p2_agujas;
@@ -64,31 +62,29 @@ public class ControladorCaso1Surepal : MonoBehaviour
     public GameObject SM_SurepalParaPaso3;
     public GameObject SM_SurepalEnAnimacionAborrarParaPaso3;
     public GameObject SM_SurepalEstuche;
-    public GameObject sliderVisualSacarSurepal;
+
     public GameObject sliderLogicaSacarSurepal;
-    public GameObject sliderVisualSacarTaponSurepal;
+ 
     public GameObject sliderLogicaEnSurepalSacarTapon;
 
     public GameObject capuchonConDraggable;
 
     public GameObject capuchonParaVolverALaMesa;
 
-    public GameObject sliderVisualTaponAEstuche;
+  
     public GameObject sliderLogicaTaponAEstuche;
 
     public Transform anilloDeCierreSurePalPaso3;
 
-    public GameObject sliderVisualDesenrroscaAnillo;
+
 
     public GameObject sliderLogicoDesenrroscaAnillo;
 
     public GameObject anilloDeCierrePaso3Sacar;
 
-    public GameObject sliderVisualSacaAnilloDeCierrePaso3;
+
 
     public GameObject SM_SurepalParaPaso3FINAl;
-
-    public GameObject sliderVisuaSueltaRoscaAnillo;
 
     public GameObject sliderLogicoSueltaRoscaAnillo;
 
@@ -114,20 +110,20 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     [Header("QuintoPaso")]
     public GameObject linearDraggableLogicaCartucho;
-    public GameObject linearDraggableVisualCartucho;
+
 
     public GameObject linearDraggableLogicoAnilloeCierre;
-    public GameObject linearDraggableVisualAnilloeCierre;
+
 
 
     public GameObject linearDraggableLogicaColocaCartucho;
-    public GameObject linearDraggableVisualColocaCartucho;
+
 
     public GameObject linearDraggableLogicaGIRACartucho;
-    public GameObject linearDraggableVisualGIRACartucho;
+
 
     public GameObject linearDraggableLogicaClickCartucho;
-    public GameObject linearDraggableVisualClickCartucho;
+
 
     [Header("SextoPaso")]
     public GameObject surepalPaso6;
@@ -136,42 +132,42 @@ public class ControladorCaso1Surepal : MonoBehaviour
     public GameObject cartuchoEnAnilloDEABorrar;
 
     public GameObject linearDraggableLogicaEncajarAnillo;
-    public GameObject linearDraggableVisualEncajarAnillo;
 
 
-    public GameObject linearDraggableVisualRotarAnilloEnSurepal;
+
+
     public GameObject linearDraggableLogicaRotarAnilloEnSurepal;
 
     public GameObject SurepalPasoLimpiarPunta;
 
     [Header("PasoLimpiarPunta")]
-    public GameObject linearDraggableVisualLimpiarPuntaSurepal;
+
     public GameObject linearDraggableLogicaLimpiarPuntaSurepal;
     public GameObject washclothEspecialTirarALaBasura;
-    public GameObject LinearDraggableVisualwashclothEespecial;
+
 
     [Header("AbrirAguja")]
     public GameObject agujaAAbrir;
-    public GameObject linearDraggableVisualQuitarPegatina;
+
     public GameObject linearDraggableLogicaQuitarPegatina;
 
     [Header("Meter Aguja")]
-    public GameObject linearDraggableVisualAgujaEnSurepal;
+
     public GameObject linearDraggableLogicaAgujaEnSurepal;
 
     [Header("Rotar Aguja")]
-    public GameObject linearDraggableVisualRotarAgujaEnSurepal;
+
     public GameObject linearDraggableLogicaRotarAgujaEnSurepal;
 
     [Header("Sacar Capuchon")]
-    public GameObject linearDraggableVisualSacaCapuchaAgujaEnSurepal;
+
     public GameObject linearDraggableLogicaSacaCapuchaAgujaEnSurepal;
 
     [Header("ColocarCubreAgujas")]
     public GameObject CubreAgujasSuelto;
     public GameObject CubreAgujasEnEstucheABorrar;
 
-    public GameObject linearDraggableVisualColocaOcultador;
+
     public GameObject linearDraggableLogicaColocaOcultador;
 
     public GameObject capuchonSuelto;
@@ -179,7 +175,7 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     [Header("GirarDosisFinal")]
     public Animator surepalDefinitivoFinal;
-    public GameObject linearDraggableVisualGirarDosis;
+
     public GameObject linearDraggableLogicaGirarDosis;
 
     public TextMeshProUGUI textTop;
@@ -194,20 +190,21 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     [Header("Medicarse")]
     public Animator canvasElegirAnimator;
-    public GameObject linearDraggableVisualLimpiaZona;
+
     public GameObject linearDraggableLogicaLimpiaZona;
 
-    public GameObject linearDraggableVisualEcharSurepalHaciaAtras;
     public GameObject linearDraggableLogicaEcharSurepalHaciaAtras;
 
-    public GameObject linearDraggableVisualSacarProtectorDeAguja;
+
     public GameObject linearDraggableLogicaSacarProtectorDeAguja;
 
-    public GameObject linearDraggableVisualPincharSurepal;
+
     public GameObject linearDraggableLogicaPincharSurepal;
 
-    public GameObject linearDraggableVisualPulsarBotonEnSurepal;
+
     public GameObject linearDraggableLogicaPulsarBotonEnSurepal;
+
+    public GameObject linearDraggableLogicaSacarSurepal;
 
     #region Auxiliares
 
@@ -361,7 +358,6 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public void EnableSliderVisualNevera()
     {
-        dragAndDropAbrirNeveraVisual.SetActive(true);
         ChangeAndShowConsejo("Selecciona el asa y arrastra");
     }
 
@@ -379,7 +375,6 @@ public class ControladorCaso1Surepal : MonoBehaviour
     {
         TurnOffOutlines(neveraAnimator.transform);
         MoveToMousePositionPanelMuyBien();
-        dragAndDropAbrirNeveraVisual.SetActive(false);
         dragAndDropAbrirNeveraLogica.SetActive(false);
         neveraAnimator.Play("NeveraCloseUp");
         Invoke(nameof(EnableSliderVisualSacarSurepalDeNevera), 1);
@@ -387,7 +382,6 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public void EnableSliderVisualSacarSurepalDeNevera()
     {
-        dragAndDropSacarSurepalVisual.SetActive(true);
         dragAndDropSacarSurepalLogica.SetActive(true);
         ChangeAndShowConsejo("Selecciona el estuche y arrastra");
         TurnOnOutlines(surepalEnNevera.transform);
@@ -395,7 +389,6 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public void SacarDispositivoDeNevera()
     {
-        dragAndDropSacarSurepalVisual.SetActive(false);
         dragAndDropSacarSurepalLogica.SetActive(false);
         neveraAnimator.Play("NeveraSeCierraYAleja");
         surepalParaAnimacionFueraDeNevera.SetActive(true);
@@ -423,7 +416,7 @@ public class ControladorCaso1Surepal : MonoBehaviour
         textoExplicacíon.text = textosDePasoEnOrden[3];
         surepalParaAnimacionFueraDeNevera.gameObject.SetActive(false);
         estucheparaPasoDos.gameObject.SetActive(true);
-        sliderVisualSacarAguja.SetActive(true);
+
         sliderLogicaSacarAguja.SetActive(true);
         ChangeAndShowConsejo("Saca una aguja del estuche");
     }
@@ -433,9 +426,8 @@ public class ControladorCaso1Surepal : MonoBehaviour
         textoExplicacíon.text = textosDePasoEnOrden[4];
         TurnOffOutlines(estucheparaPasoDos.transform);
         //TurnOnOutlines();
-        sliderVisualAgujaEnMesa.SetActive(true);
         sliderLogicaAgujaEnMesa.SetActive(true);
-        sliderVisualSacarAguja.SetActive(false);
+  
         sliderLogicaSacarAguja.SetActive(false);
         ChangeAndShowConsejo("Coloca la aguja en la mesa");
     }
@@ -445,9 +437,9 @@ public class ControladorCaso1Surepal : MonoBehaviour
         textoExplicacíon.text = textosDePasoEnOrden[5];
         //TurnOnOutlines();
         //TurnOnOutlines();
-        sliderVisualAgujaEnMesa.SetActive(false);
+
         sliderLogicaAgujaEnMesa.SetActive(false);
-        sliderVisualCartuchoALaMesa.SetActive(true);
+      
         sliderLogicaCartuchoALaMesa.SetActive(true);
         ChangeAndShowConsejo("Coloca el cartucho sobre la mesa");
         //enciende los nuevos sliders 
@@ -458,9 +450,9 @@ public class ControladorCaso1Surepal : MonoBehaviour
         TurnOffOutlines(cartuchoEnEstucheEnMesa.transform);
         cartuchoEnEstucheEnMesa.GetComponent<Outline>().enabled = false;
         textoExplicacíon.text = textosDePasoEnOrden[6];
-        sliderVisualCartuchoALaMesa.SetActive(false);
+      
         sliderLogicaCartuchoALaMesa.SetActive(false);
-        sliderVisualOcultadorALaMesa.SetActive(true);
+    
         sliderLogicaOcultadorALaMesa.SetActive(true);
         ChangeAndShowConsejo("Coloca el ocultador en la mesa");
     }
@@ -469,7 +461,7 @@ public class ControladorCaso1Surepal : MonoBehaviour
     {
         textoExplicacíon.text = textosDePasoEnOrden[7];
         TurnOffOutlines(estucheparaPasoDos.transform);
-        sliderVisualOcultadorALaMesa.SetActive(false);
+     
         sliderLogicaOcultadorALaMesa.SetActive(false);
 
         mesaPupitre.transform.parent = null;
@@ -482,38 +474,37 @@ public class ControladorCaso1Surepal : MonoBehaviour
     public void PrepararLogicaSacarSurepalDeEstuche()
     {
         ChangeAndShowConsejo("Saca tu Surepal");
-        sliderVisualSacarSurepal.SetActive(true);
+
         sliderLogicaSacarSurepal.SetActive(true);
     }
 
     public void PrepararSurepalParaCapuchon()
     {
-        sliderVisualSacarSurepal.SetActive(false);
+
         sliderLogicaSacarSurepal.SetActive(false);
         SM_SurepalParaPaso3.SetActive(true);
         SM_SurepalEnAnimacionAborrarParaPaso3.SetActive(false);
         ChangeAndShowConsejo("Destapa tu Surepal");
-        sliderVisualSacarTaponSurepal.SetActive(true);
+  
         //sliderLogicaEnSurepalSacarTapon.SetActive(true);    
     }
 
     public void SacarCapuchonDeSurepal()
     {
-        sliderVisualSacarTaponSurepal.SetActive(false);
+
         capuchonConDraggable.SetActive(false);
         capuchonParaVolverALaMesa.SetActive(true);
         SM_SurepalParaPaso3.GetComponent<Animator>().Play("RetiraSurepalParaVisibilidad");
         ChangeAndShowConsejo("Coloca el capuchón en el estuche");
         sliderLogicaTaponAEstuche.SetActive(true);
-        sliderVisualTaponAEstuche.SetActive(true);
+    
     }
 
     public void ColocartapaEnEstuche()
     {
         textoExplicacíon.text = textosDePasoEnOrden[8];
         sliderLogicaTaponAEstuche.SetActive(false);
-        sliderVisualTaponAEstuche.SetActive(false);
-        sliderVisualDesenrroscaAnillo.SetActive(true);
+   
         sliderLogicoDesenrroscaAnillo.SetActive(true);
         SM_SurepalParaPaso3.GetComponent<Animator>().Play("SurepalHighLightCierre");
         TurnOnOutlines(SM_SurepalParaPaso3.transform);
@@ -522,9 +513,9 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public void GirarAnilloDeCierre()
     {
-        sliderVisualDesenrroscaAnillo.SetActive(false);
+
         sliderLogicoDesenrroscaAnillo.SetActive(false);
-        sliderVisualSacaAnilloDeCierrePaso3.SetActive(true);
+     
         anilloDeCierrePaso3Sacar.GetComponent<BoxCollider>().enabled = true;
         anilloDeCierrePaso3Sacar.GetComponent<LinearDragable>().canInteract = true;
         ChangeAndShowConsejo("Extrae el anillo de cierre");
@@ -532,8 +523,7 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public void SacarAnilloDeCierreDeSurepal()
     {
-        sliderVisualSacaAnilloDeCierrePaso3.SetActive(false);
-        sliderVisuaSueltaRoscaAnillo.SetActive(true);
+     
         sliderLogicoSueltaRoscaAnillo.SetActive(true);
         SM_SurepalParaPaso3FINAl.SetActive(true);
         //anilloDeCierreSurePalPaso3.gameObject.SetActive(false);
@@ -542,7 +532,6 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public void MoverAnilloDeCierreALaMesa()
     {
-        sliderVisuaSueltaRoscaAnillo.SetActive(false);
         sliderLogicoSueltaRoscaAnillo.SetActive(false);
         textoExplicacíon.text = textosDePasoEnOrden[9];
         ChangeAndShowConsejo("Identifica las partes del Surepal");
@@ -696,50 +685,50 @@ public class ControladorCaso1Surepal : MonoBehaviour
     public void EnciendeDraggablesParaAnilloDeCierrePaso4()
     {
         linearDraggableLogicoAnilloeCierre.SetActive(true);
-        linearDraggableVisualAnilloeCierre.SetActive(true);
+
     }
 
     public void ElevarAnilloDeCierreAlAirePaso4()
     {
         linearDraggableLogicoAnilloeCierre.SetActive(false);
-        linearDraggableVisualAnilloeCierre.SetActive(false);
+
         linearDraggableLogicaCartucho.gameObject.SetActive(true);
-        linearDraggableVisualCartucho.gameObject.SetActive(true);
+    
         MoveToMousePositionPanelMuyBien();
     }
 
     public void AlinearCartuchoConAnilloDeCierre()
     {
         linearDraggableLogicaCartucho.gameObject.SetActive(false);
-        linearDraggableVisualCartucho.gameObject.SetActive(false);
+ 
 
         linearDraggableLogicaColocaCartucho.gameObject.SetActive(true);
-        linearDraggableVisualColocaCartucho.gameObject.SetActive(true);
+    
         MoveToMousePositionPanelMuyBien();
     }
 
     public void AhoraTocaGirar()
     {
         linearDraggableLogicaColocaCartucho.gameObject.SetActive(false);
-        linearDraggableVisualColocaCartucho.gameObject.SetActive(false);
+      
         linearDraggableLogicaGIRACartucho.SetActive(true);
-        linearDraggableVisualGIRACartucho.SetActive(true);
+
         MoveToMousePositionPanelMuyBien();
     }
 
     public void CartuchoGirado()
     {
         linearDraggableLogicaGIRACartucho.SetActive(false);
-        linearDraggableVisualGIRACartucho.SetActive(false);
+   
         linearDraggableLogicaClickCartucho.SetActive(true);
-        linearDraggableVisualClickCartucho.SetActive(true);
+   
         MoveToMousePositionPanelMuyBien();
     }
 
     public void CartuchoClick()
     {
         linearDraggableLogicaClickCartucho.SetActive(false);
-        linearDraggableVisualClickCartucho.SetActive(false);
+
         surepalPaso6.GetComponent<Animator>().Play("ColocarSurepalEnPosicionParaAnilloDeCierre");
         anilloDeCierrePaso6.GetComponent<Animator>().Play("AlinearAnilloDeCierreConSurepal");
         anilloDeCierrePaso6.GetComponent<Animator>().speed = 1;
@@ -753,35 +742,35 @@ public class ControladorCaso1Surepal : MonoBehaviour
     public void PrepararEncajeCierreYSurepal()
     {
         linearDraggableLogicaEncajarAnillo.SetActive(true);
-        linearDraggableVisualEncajarAnillo.SetActive(true);
+
     }
 
     public void DragAndDropAnilloDeCierreASurepal()
     {
         linearDraggableLogicaEncajarAnillo.SetActive(false);
-        linearDraggableVisualEncajarAnillo.SetActive(false);
 
-        linearDraggableVisualRotarAnilloEnSurepal.SetActive(true);
+
+
         linearDraggableLogicaRotarAnilloEnSurepal.SetActive(true);
         MoveToMousePositionPanelMuyBien();
     }
 
     public void GiraAnilloDeCierreEnSurepal()
     {
-        linearDraggableVisualRotarAnilloEnSurepal.SetActive(false);
+     
         linearDraggableLogicaRotarAnilloEnSurepal.SetActive(false);
         SurepalPasoLimpiarPunta.SetActive(true);
         anilloDeCierrePaso6.SetActive(false);
         surepalPaso6.SetActive(false);
         parentPasos[6].SetActive(true);
         toallitasParent.GetComponent<Animator>().Play("ToallitaPreparadaParaLimpiar");
-        linearDraggableVisualLimpiarPuntaSurepal.SetActive(true);
+       
         linearDraggableLogicaLimpiarPuntaSurepal.SetActive(true);
     }
 
     public void LimpiarPuntaSurepalConToallita()
     {
-        linearDraggableVisualLimpiarPuntaSurepal.SetActive(false);
+
         linearDraggableLogicaLimpiarPuntaSurepal.SetActive(false);
         toallitasParent.GetComponent<Animator>().Play("LimpiaSurepalAuto");
         toallitasParent.GetComponent<Animator>().speed = 1;
@@ -792,13 +781,13 @@ public class ControladorCaso1Surepal : MonoBehaviour
     {
         disposalCan.GetComponent<Animator>().Play("MoverDisposalParaWashcloth");
         washclothEspecialTirarALaBasura.SetActive(true);
-        LinearDraggableVisualwashclothEespecial.SetActive(true);
+   
         toallitasParent.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     public void TirarToallitaAPapelera()
     {
-        LinearDraggableVisualwashclothEespecial.SetActive(false);
+
         washclothEspecialTirarALaBasura.SetActive(false);
         disposalCan.GetComponent<Animator>().Play("DisposalBack");
         MoveToMousePositionPanelMuyBien();
@@ -817,13 +806,13 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public void PrepararDespegarPegatina()
     {
-        linearDraggableVisualQuitarPegatina.SetActive(true);
+
         linearDraggableLogicaQuitarPegatina.SetActive(true);
     }
 
     public void DespegarPegatinaAgujaEmpaquetada()
     {
-        linearDraggableVisualQuitarPegatina.SetActive(false);
+
         linearDraggableLogicaQuitarPegatina.SetActive(false);
         MoveToMousePositionPanelMuyBien();
 
@@ -840,30 +829,24 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public void PrepararDraggablesAgujaYSurepal()
     {
-        linearDraggableVisualAgujaEnSurepal.SetActive(true);
+    
         linearDraggableLogicaAgujaEnSurepal.SetActive(true);
     }
     public void DragAndropAgujaAlSurepal()
     {
-        linearDraggableVisualAgujaEnSurepal.SetActive(false);
         linearDraggableLogicaAgujaEnSurepal.SetActive(false);
-        linearDraggableVisualRotarAgujaEnSurepal.SetActive(true);
         linearDraggableLogicaRotarAgujaEnSurepal.SetActive(true);
     }
 
     public void GiraAgujaEmpaquetadaEnSurepal()
     {
-        linearDraggableVisualRotarAgujaEnSurepal.SetActive(false);
         linearDraggableLogicaRotarAgujaEnSurepal.SetActive(false);
-        linearDraggableVisualSacaCapuchaAgujaEnSurepal.SetActive(true);
         linearDraggableLogicaSacaCapuchaAgujaEnSurepal.SetActive(true);
     }
 
     public void DragAndDropSacaEnvoltorioAgujaDeSurepal()
     {
-        linearDraggableVisualSacaCapuchaAgujaEnSurepal.SetActive(false);
         linearDraggableLogicaSacaCapuchaAgujaEnSurepal.SetActive(false);
-        linearDraggableVisualColocaOcultador.SetActive(true);
         linearDraggableLogicaColocaOcultador.SetActive(true);
         agujaAAbrir.GetComponent<Animator>().Play("DejaCapuchonEnMesa");
         agujaAAbrir.GetComponent<Animator>().speed = 1;
@@ -874,7 +857,6 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public void DragAndDropOcultadorDeagujaEnSurepal()
     {
-        linearDraggableVisualColocaOcultador.SetActive(false);
         linearDraggableLogicaColocaOcultador.SetActive(false);
         Invoke(nameof(RetiraSurepalPorLaDerecha), 2);
     }
@@ -901,13 +883,11 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public void PrepararBotonDosisGiro()
     {
-        linearDraggableVisualGirarDosis.SetActive(true);
         linearDraggableLogicaGirarDosis.SetActive(true);
     }
 
     public void GiraBotonDosisSurepal()
     {
-        linearDraggableVisualGirarDosis.SetActive(false);
         linearDraggableLogicaGirarDosis.SetActive(false);
         surepalDefinitivoFinal.Play("GirarDosisSurepal");
         Invoke(nameof(ElegirParteDelCuerpoParaPinchar), 8);
@@ -942,14 +922,14 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public void PreparaLimpiadoDeToallas()
     {
-        linearDraggableVisualLimpiaZona.SetActive(true);
+
         linearDraggableLogicaLimpiaZona.SetActive(true);
     }
 
 
     public void DragAndDropToallitaAlcoholEnParteDelCuerpoBarriga()
     {
-        linearDraggableVisualLimpiaZona.SetActive(false);
+ 
         linearDraggableLogicaLimpiaZona.SetActive(false);
         toallitasParent.GetComponent<Animator>().Play("ToallitaSaleDePlano");
         toallitasParent.GetComponent<Animator>().speed = 1;
@@ -964,22 +944,22 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public void PreparaEcharAtrasOcultadorAguja()
     {
-        linearDraggableVisualEcharSurepalHaciaAtras.SetActive(true);
+      
         linearDraggableLogicaEcharSurepalHaciaAtras.SetActive(true);
     }
 
     public void EchaHaciaAtrasOcultadorDeAguja()
     {
-        linearDraggableVisualEcharSurepalHaciaAtras.SetActive(false);
+ 
         linearDraggableLogicaEcharSurepalHaciaAtras.SetActive(false);
-        linearDraggableVisualSacarProtectorDeAguja.SetActive(true);
+     
         linearDraggableLogicaSacarProtectorDeAguja.SetActive(true);
     }
 
 
     public void PrepararSurepalParaPinchar()
     {
-        linearDraggableVisualSacarProtectorDeAguja.SetActive(false);
+
         linearDraggableLogicaSacarProtectorDeAguja.SetActive(false);
         surepalDefinitivoFinal.Play("PrepararSurepalParaPinchar");
         surepalDefinitivoFinal.speed = 1;
@@ -988,22 +968,28 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public void SacarDragAndDropParaPinchar()
     {
-        linearDraggableVisualPincharSurepal.SetActive(true);
+  
         linearDraggableLogicaPincharSurepal.SetActive(true);
     }
 
     public void PincharBarriga()
     {
-        linearDraggableVisualPincharSurepal.SetActive(false);
+  
         linearDraggableLogicaPincharSurepal.SetActive(false);
-        linearDraggableVisualPulsarBotonEnSurepal.SetActive(true);
+    
         linearDraggableLogicaPulsarBotonEnSurepal.SetActive(true);
+    }
+
+    public void PresionarBoton() 
+    {
+        linearDraggableLogicaPulsarBotonEnSurepal.SetActive(false);
+        linearDraggableLogicaSacarSurepal.SetActive(true);
     }
 
     public void RetirarSurepal()
     {
-        linearDraggableVisualPulsarBotonEnSurepal.SetActive(false);
-        linearDraggableLogicaPulsarBotonEnSurepal.SetActive(false);
+        linearDraggableLogicaSacarSurepal.SetActive(false);
+      
         surepalDefinitivoFinal.GetComponent<Animator>().Play("RetirarSurepal");
         surepalDefinitivoFinal.GetComponent<Animator>().speed = 1;
     }
