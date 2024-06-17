@@ -62,6 +62,9 @@ public class LinearDragable : Dragable
             if (resetOnRelease)
             {
                 transform.position = startingPosition;
+                UpdateAnimations();
+                OnDisplacementChanged.Invoke(0);
+                lastDisplacement = 0;
             }
         }
     }
