@@ -52,7 +52,7 @@ public class LinearDragable : Dragable
             float angle = Mathf.Atan2(screenPointB.y - screenPointA.y, screenPointB.x - screenPointA.x) * Mathf.Rad2Deg;
             instancedSlider = Instantiate(sliderPrefab, (pointA.position + pointB.position)/2, Quaternion.Euler(0, 0, angle));
             RectTransform sliderChild = instancedSlider.transform.GetChild(0).GetChild(0).GetComponent<RectTransform>();
-            float distance = (pointB.position - pointA.position).magnitude / 30;
+            float distance = (pointB.position - pointA.position).magnitude / 300;
             sliderChild.sizeDelta = new Vector2(sliderChild.sizeDelta.x * distance + 40, sliderChild.sizeDelta.y);
             Slider sliderComponent = sliderChild.GetComponent<Slider>();
             OnDisplacementChanged.AddListener((v) => sliderComponent.value = v);
@@ -150,16 +150,6 @@ public class LinearDragable : Dragable
             }
         }
     }
-
-#if UNITY_EDITOR
-    private void Update()
-    {
-        if (shouldInstanceSlider)
-        {
-            instancedSlider.transform.position = (pointA.position + pointB.position) / 2 + displacement;
-        }
-    }
-#endif
 
 #if UNITY_EDITOR
 
