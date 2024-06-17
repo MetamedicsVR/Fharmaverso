@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 public class LinearDragable : Dragable
 {
@@ -20,6 +21,13 @@ public class LinearDragable : Dragable
     private float currentDisplacement = 0;
     private float lastDisplacement = 0;
 
+    [Header("Slider")]
+    public GameObject sliderPrefab;
+    public bool shouldInstanceSlider = true;
+    public Vector3 displacement;
+
+    private GameObject instancedSlider;
+
     [Header("Animations")]
     public AnimationBlend[] animationBlends;
 
@@ -37,6 +45,18 @@ public class LinearDragable : Dragable
     private void Start()
     {
         startingPosition = transform.position;
+        if (shouldInstanceSlider)
+        {
+            Vector2 screenPointA = Camera.main.WorldToScreenPoint(pointA.position);
+            Vector2 screenPointB = Camera.main.WorldToScreenPoint(pointB.position);
+            float angle = Mathf.Atan2(screenPointB.y - screenPointA.y, screenPointB.x - screenPointA.x) * Mathf.Rad2Deg;
+            instancedSlider = Instantiate(sliderPrefab, (pointA.position + pointB.position)/2, Quaternion.Euler(0, 0, angle));
+            RectTransform sliderChild = instancedSlider.transform.GetChild(0).GetChild(0).GetComponent<RectTransform>();
+            float distance = (pointB.position - pointA.position).magnitude / 30;
+            sliderChild.sizeDelta = new Vector2(sliderChild.sizeDelta.x * distance + 40, sliderChild.sizeDelta.y);
+            Slider sliderComponent = sliderChild.GetComponent<Slider>();
+            OnDisplacementChanged.AddListener((v) => sliderComponent.value = v);
+        }
     }
 
     protected override void InteractionEnded()
@@ -132,6 +152,21 @@ public class LinearDragable : Dragable
     }
 
 #if UNITY_EDITOR
+    private void Update()
+    {
+        if (shouldInstanceSlider)
+        {
+            instancedSlider.transform.position = (pointA.position + pointB.position) / 2 + displacement;
+        }
+    }
+#endif
+
+#if UNITY_EDITOR
+
+    [Header("Gizmos")]
+    public float radius = 0.5f;
+    public int segments = 20;
+
     private void OnDrawGizmos()
     {
         if (pointA && pointB)
@@ -143,6 +178,57 @@ public class LinearDragable : Dragable
             {
                 Gizmos.DrawSphere(Vector3.Lerp(pointA.position, pointB.position, snapPoint), snapRange);
             }
+            if (shouldInstanceSlider)
+            {
+                Gizmos.color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+                DrawCylinder(pointA.position + displacement, pointB.position + displacement, radius, segments);
+            }
+            
+        }
+    }
+
+    private void DrawCylinder(Vector3 start, Vector3 end, float radius, int segments)
+    {
+        Vector3 direction = end - start;
+        float height = direction.magnitude;
+        Vector3 up = direction.normalized;
+
+        Vector3 right = Vector3.Cross(up, Vector3.forward).normalized * radius;
+        Vector3 forward = Vector3.Cross(right, up).normalized * radius;
+
+        DrawCircle(start, right, forward, up, segments);
+        DrawCircle(end, right, forward, up, segments);
+
+        for (int i = 0; i < segments; i++)
+        {
+            float angle1 = i * 360f / segments;
+            float angle2 = (i + 1) * 360f / segments;
+
+            Vector3 offset1 = right * Mathf.Cos(angle1 * Mathf.Deg2Rad) + forward * Mathf.Sin(angle1 * Mathf.Deg2Rad);
+            Vector3 offset2 = right * Mathf.Cos(angle2 * Mathf.Deg2Rad) + forward * Mathf.Sin(angle2 * Mathf.Deg2Rad);
+
+            Vector3 point1 = start + offset1;
+            Vector3 point2 = start + offset2;
+            Vector3 point3 = end + offset1;
+            Vector3 point4 = end + offset2;
+
+            Gizmos.DrawLine(point1, point2);
+            Gizmos.DrawLine(point1, point3);
+            Gizmos.DrawLine(point3, point4);
+            Gizmos.DrawLine(point2, point4);
+        }
+    }
+
+    private void DrawCircle(Vector3 center, Vector3 right, Vector3 forward, Vector3 up, int segments)
+    {
+        Vector3 lastPoint = center + right;
+        for (int i = 1; i <= segments; i++)
+        {
+            float angle = i * 360f / segments;
+            Vector3 offset = right * Mathf.Cos(angle * Mathf.Deg2Rad) + forward * Mathf.Sin(angle * Mathf.Deg2Rad);
+            Vector3 nextPoint = center + offset;
+            Gizmos.DrawLine(lastPoint, nextPoint);
+            lastPoint = nextPoint;
         }
     }
 #endif
