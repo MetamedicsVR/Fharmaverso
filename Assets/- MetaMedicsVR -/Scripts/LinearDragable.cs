@@ -59,7 +59,7 @@ public class LinearDragable : Dragable
             sliderScale.localScale = new Vector2(sliderSize * cameraDistance, sliderSize * cameraDistance);
             RectTransform sliderChild = instancedSlider.transform.GetChild(0).GetChild(0).GetComponent<RectTransform>();
             float distance = (pointB.position - pointA.position).magnitude;
-            sliderChild.sizeDelta = new Vector2((sliderChild.sizeDelta.x * distance + 40) / (1000 * sliderSize * cameraDistance), sliderChild.sizeDelta.y);
+            sliderChild.sizeDelta = new Vector2((sliderChild.sizeDelta.x + 80) * distance / (1000 * sliderSize * cameraDistance), sliderChild.sizeDelta.y);
             Slider sliderComponent = sliderChild.GetComponent<Slider>();
             OnDisplacementChanged.AddListener((v) => sliderComponent.value = v);
 

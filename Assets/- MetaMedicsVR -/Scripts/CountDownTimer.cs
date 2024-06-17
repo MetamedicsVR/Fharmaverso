@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class CountDownTimer : MonoBehaviour
 {
     public UnityEvent timerStarted;
-    public UnityEvent timerReset;
     public UnityEvent timerStopped;
-    public UnityEvent timerPaused;
     public UnityEvent timerEnded;
+
+    public TextMeshProUGUI remainingTMP;
 
     public float totalTime;
     private float remainingTime;
@@ -26,6 +27,7 @@ public class CountDownTimer : MonoBehaviour
                 counting = false;
                 timerEnded.Invoke();
             }
+            remainingTMP.text = remainingTime.ToString("F2");
         }
     }
 
@@ -33,17 +35,9 @@ public class CountDownTimer : MonoBehaviour
     {
         if (!counting)
         {
+            remainingTime = totalTime;
             counting = true;
             timerStarted.Invoke();
-        }
-    }
-
-    public void ResetTimer()
-    {
-        if (remainingTime != totalTime)
-        {
-            remainingTime = totalTime;
-            timerReset.Invoke();
         }
     }
 
@@ -51,18 +45,13 @@ public class CountDownTimer : MonoBehaviour
     {
         if (counting || remainingTime != totalTime)
         {
-            remainingTime = totalTime;
             counting = false;
             timerStopped.Invoke();
         }
     }
 
-    public void PauseTimer()
+    public bool IsCounting()
     {
-        if (counting)
-        {
-            counting = false;
-            timerPaused.Invoke();
-        }
+        return counting;
     }
 }
