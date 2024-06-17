@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class LinearDragable : Dragable
 {
@@ -50,9 +50,10 @@ public class LinearDragable : Dragable
             Vector2 screenPointA = Camera.main.WorldToScreenPoint(pointA.position);
             Vector2 screenPointB = Camera.main.WorldToScreenPoint(pointB.position);
             float angle = Mathf.Atan2(screenPointB.y - screenPointA.y, screenPointB.x - screenPointA.x) * Mathf.Rad2Deg;
-            instancedSlider = Instantiate(sliderPrefab, (pointA.position + pointB.position)/2, Quaternion.Euler(0, 0, angle));
+            instancedSlider = Instantiate(sliderPrefab, (pointA.position + pointB.position)/2, Quaternion.Euler(Camera.main.transform.eulerAngles.x, Camera.main.transform.eulerAngles.y, angle));
+            instancedSlider.transform.parent = transform.parent;
             RectTransform sliderChild = instancedSlider.transform.GetChild(0).GetChild(0).GetComponent<RectTransform>();
-            float distance = (pointB.position - pointA.position).magnitude / 300;
+            float distance = (pointB.position - pointA.position).magnitude / 3;
             sliderChild.sizeDelta = new Vector2(sliderChild.sizeDelta.x * distance + 40, sliderChild.sizeDelta.y);
             Slider sliderComponent = sliderChild.GetComponent<Slider>();
             OnDisplacementChanged.AddListener((v) => sliderComponent.value = v);
@@ -76,6 +77,7 @@ public class LinearDragable : Dragable
         {
             canInteract = false;
             Snapped.Invoke();
+            Destroy(instancedSlider);
         }
         else
         {
