@@ -162,6 +162,9 @@ public class ControladorCaso1Surepal : MonoBehaviour
     public GameObject linearDraggableVisualColocaOcultador;
     public GameObject linearDraggableLogicaColocaOcultador;
 
+    public GameObject capuchonSuelto;
+    public GameObject capuchonABorrar;
+
     #region Auxiliares
 
     public void ChangeAndShowConsejo(string consejoTexto) 
@@ -779,7 +782,7 @@ public class ControladorCaso1Surepal : MonoBehaviour
         linearDraggableLogicaQuitarPegatina.SetActive(false);
         MoveToMousePositionPanelMuyBien();
 
-        Invoke(nameof(MoverSurepalYjeringuillaEnLinea), 2);
+        Invoke(nameof(MoverSurepalYjeringuillaEnLinea), 0.5f);
     }
 
     public void MoverSurepalYjeringuillaEnLinea() 
@@ -828,6 +831,25 @@ public class ControladorCaso1Surepal : MonoBehaviour
     {
         linearDraggableVisualColocaOcultador.SetActive(false);
         linearDraggableLogicaColocaOcultador.SetActive(false);
+        Invoke(nameof(RetiraSurepalPorLaDerecha), 2);
+    }
+
+    public void RetiraSurepalPorLaDerecha() 
+    {
+            CubreAgujasSuelto.GetComponent<Animator>().Play("SacarCubreAgujasPorLaDerecha");
+            CubreAgujasSuelto.GetComponent<Animator>().speed = 1;
+            SurepalPasoLimpiarPunta.GetComponent<Animator>().Play("RetiraSurepalPorLaDerecha");
+            agujaAAbrir.GetComponent<Animator>().Play("AgujaSeVaParaLaDerecha");
+            capuchonABorrar.SetActive(false);
+            capuchonSuelto.SetActive(true);
+        Invoke(nameof(ApagarElementosAngtiguosSurepal),2);
+    }
+
+    public void ApagarElementosAngtiguosSurepal() 
+    {
+        CubreAgujasSuelto.SetActive(false);
+        SurepalPasoLimpiarPunta.SetActive(false);
+        agujaAAbrir.SetActive(false);
     }
 
     public void GiraBotonDosisSurepal() 
