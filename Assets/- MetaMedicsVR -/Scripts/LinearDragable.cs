@@ -24,6 +24,7 @@ public class LinearDragable : Dragable
     [Header("Slider")]
     public GameObject sliderPrefab;
     public bool shouldInstanceSlider = true;
+    public float sliderSize = 1;
     public Vector3 displacement;
 
     private GameObject instancedSlider;
@@ -50,13 +51,18 @@ public class LinearDragable : Dragable
             Vector2 screenPointA = Camera.main.WorldToScreenPoint(pointA.position);
             Vector2 screenPointB = Camera.main.WorldToScreenPoint(pointB.position);
             float angle = Mathf.Atan2(screenPointB.y - screenPointA.y, screenPointB.x - screenPointA.x) * Mathf.Rad2Deg;
-            instancedSlider = Instantiate(sliderPrefab, (pointA.position + pointB.position)/2, Quaternion.Euler(Camera.main.transform.eulerAngles.x, Camera.main.transform.eulerAngles.y, angle));
+            instancedSlider = Instantiate(sliderPrefab, (pointA.position + pointB.position)/2 + displacement, Quaternion.Euler(Camera.main.transform.eulerAngles.x, Camera.main.transform.eulerAngles.y, angle));
             instancedSlider.transform.parent = transform.parent;
+
+            float cameraDistance = Camera.main.transform.InverseTransformPoint(instancedSlider.transform.position).z;
+            RectTransform sliderScale = instancedSlider.transform.GetChild(0).GetComponent<RectTransform>();
+            sliderScale.localScale = new Vector2(sliderSize * cameraDistance, sliderSize * cameraDistance);
             RectTransform sliderChild = instancedSlider.transform.GetChild(0).GetChild(0).GetComponent<RectTransform>();
-            float distance = (pointB.position - pointA.position).magnitude / 3;
-            sliderChild.sizeDelta = new Vector2(sliderChild.sizeDelta.x * distance + 40, sliderChild.sizeDelta.y);
+            float distance = (pointB.position - pointA.position).magnitude;
+            sliderChild.sizeDelta = new Vector2((sliderChild.sizeDelta.x * distance + 40) / (1000 * sliderSize * cameraDistance), sliderChild.sizeDelta.y);
             Slider sliderComponent = sliderChild.GetComponent<Slider>();
             OnDisplacementChanged.AddListener((v) => sliderComponent.value = v);
+
         }
     }
 
