@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -11,6 +12,10 @@ public class LinearDragable : Dragable
     public Transform pointB;
     public bool resetOnRelease;
 
+    private Vector3 startingPosition;
+    private float currentDisplacement = 0;
+    private float lastDisplacement = 0;
+
     [Header("Snap")]
     public bool shouldSnap;
     [Range(0, 1)]
@@ -18,40 +23,35 @@ public class LinearDragable : Dragable
     public float snapRange;
     public bool autoSnap;
 
-    private float currentDisplacement = 0;
-    private float lastDisplacement = 0;
+    private bool snapped;
 
     [Header("Slider")]
     public GameObject sliderPrefab;
-    public bool shouldInstanceSlider = true;
     public float sliderSize = 1;
-    public Vector3 displacement;
+    public Vector3 sliderDisplacement;
 
     private GameObject instancedSlider;
 
     [Header("Animations")]
     public AnimationBlend[] animationBlends;
-
-    private Vector3 startingPosition;
-    private bool snapped;
+    public bool animationOnSnap;
 
     [System.Serializable]
     public struct AnimationBlend
     {
         public Animator animator;
         public string animationName;
-        public bool reverse;
     }
 
     private void Start()
     {
         startingPosition = transform.position;
-        if (shouldInstanceSlider)
+        if (sliderPrefab)
         {
             Vector2 screenPointA = Camera.main.WorldToScreenPoint(pointA.position);
             Vector2 screenPointB = Camera.main.WorldToScreenPoint(pointB.position);
             float angle = Mathf.Atan2(screenPointB.y - screenPointA.y, screenPointB.x - screenPointA.x) * Mathf.Rad2Deg;
-            instancedSlider = Instantiate(sliderPrefab, (pointA.position + pointB.position)/2 + displacement, Quaternion.Euler(Camera.main.transform.eulerAngles.x, Camera.main.transform.eulerAngles.y, angle));
+            instancedSlider = Instantiate(sliderPrefab, (pointA.position + pointB.position) / 2 + sliderDisplacement, Quaternion.Euler(Camera.main.transform.eulerAngles.x, Camera.main.transform.eulerAngles.y, angle));
             instancedSlider.transform.parent = transform.parent;
 
             float cameraDistance = Camera.main.transform.InverseTransformPoint(instancedSlider.transform.position).z;
@@ -61,8 +61,18 @@ public class LinearDragable : Dragable
             float distance = (pointB.position - pointA.position).magnitude;
             sliderChild.sizeDelta = new Vector2((sliderChild.sizeDelta.x + 80) * distance / (1000 * sliderSize * cameraDistance), sliderChild.sizeDelta.y);
             Slider sliderComponent = sliderChild.GetComponent<Slider>();
-            OnDisplacementChanged.AddListener((v) => sliderComponent.value = v);
-
+            if (sliderComponent)
+            {
+                OnDisplacementChanged.AddListener((v) => sliderComponent.value = v);
+            }
+        }
+        foreach (AnimationBlend animationBlend in animationBlends)
+        {
+            if (animationBlend.animator && animationBlend.animationName != "")
+            {
+                animationBlend.animator.speed = 0;
+                animationBlend.animator.Play(animationBlend.animationName, 0, 0.0001f);
+            }
         }
     }
 
@@ -82,8 +92,14 @@ public class LinearDragable : Dragable
         if (snapped)
         {
             canInteract = false;
-            Snapped.Invoke();
-            Destroy(instancedSlider);
+            if (!animationOnSnap)
+            {
+                Snapped.Invoke();
+            }
+            if (instancedSlider)
+            {
+                Destroy(instancedSlider);
+            }
         }
         else
         {
@@ -138,8 +154,7 @@ public class LinearDragable : Dragable
             {
                 if (animationBlend.animator && animationBlend.animationName != "")
                 {
-                    animationBlend.animator.speed = 0;
-                    animationBlend.animator.Play(animationBlend.animationName, 0, animationBlend.reverse ? 1 - time : time);
+                    animationBlend.animator.Play(animationBlend.animationName, 0, time);
                 }
             }
         }
@@ -147,16 +162,44 @@ public class LinearDragable : Dragable
 
     private void CheckSnap()
     {
-        if (shouldSnap)
+        if (shouldSnap && !snapped)
         {
             Vector3 snapPosition = Vector3.Lerp(pointA.position, pointB.position, snapPoint);
             if (Vector3.Distance(transform.position, snapPosition) <= snapRange)
             {
                 transform.position = snapPosition;
                 snapped = true;
-                currentDisplacement = 1;
+                currentDisplacement = snapPoint;
+                if (animationOnSnap)
+                {
+                    StartCoroutine(AnimationAfterSnap());
+                }
             }
         }
+    }
+
+    private IEnumerator AnimationAfterSnap()
+    {
+        float timeToEnd = 0;
+        AnimatorStateInfo currentState;
+        foreach (AnimationBlend animationBlend in animationBlends)
+        {
+            if (animationBlend.animator && animationBlend.animationName != "")
+            {
+                animationBlend.animator.speed = 1;
+            }
+        }
+        yield return null;
+        foreach (AnimationBlend animationBlend in animationBlends)
+        {
+            if (animationBlend.animator && animationBlend.animationName != "")
+            {
+                currentState = animationBlend.animator.GetCurrentAnimatorStateInfo(0);
+                timeToEnd = Mathf.Max(timeToEnd, currentState.length * (1 - currentState.normalizedTime));
+            }
+        }
+        yield return new WaitForSeconds(timeToEnd);
+        Snapped.Invoke();
     }
 
 #if UNITY_EDITOR
@@ -176,10 +219,10 @@ public class LinearDragable : Dragable
             {
                 Gizmos.DrawSphere(Vector3.Lerp(pointA.position, pointB.position, snapPoint), snapRange);
             }
-            if (shouldInstanceSlider)
+            if (sliderPrefab)
             {
                 Gizmos.color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
-                DrawCylinder(pointA.position + displacement, pointB.position + displacement, radius, segments);
+                DrawCylinder(pointA.position + sliderDisplacement, pointB.position + sliderDisplacement, radius, segments);
             }
             
         }
