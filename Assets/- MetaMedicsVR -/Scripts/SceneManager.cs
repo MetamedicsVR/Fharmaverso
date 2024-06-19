@@ -18,6 +18,7 @@ public class SceneManager : MonoBehaviour
 
     [Header("Games")]
     public GameObject fallingObjects;
+    public GameObject findPairs;
 
     private void Start()
     {
@@ -37,5 +38,6 @@ public class SceneManager : MonoBehaviour
         entrenar_medicación.SetActive(escenario == entrenar_medicación);
         satisfacción.SetActive(escenario == satisfacción);
         fallingObjects.SetActive(escenario == fallingObjects);
+        findPairs.SetActive(escenario == findPairs);
     }
 }
