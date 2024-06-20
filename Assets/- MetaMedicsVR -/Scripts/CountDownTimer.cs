@@ -21,6 +21,7 @@ public class CountDownTimer : MonoBehaviour
         if(counting)
         {
             remainingTime -= Time.deltaTime;
+
             if(remainingTime < 0)
             {
                 remainingTime = 0;
