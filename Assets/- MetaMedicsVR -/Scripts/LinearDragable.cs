@@ -221,6 +221,9 @@ public class LinearDragable : Dragable
             }
             if (sliderPrefab)
             {
+                Gizmos.color = new Color(0, 0, 1);
+                Gizmos.DrawLine(pointA.position + sliderDisplacement, pointB.position + sliderDisplacement);
+
                 Gizmos.color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
                 DrawCylinder(pointA.position + sliderDisplacement, pointB.position + sliderDisplacement, radius, segments);
             }
