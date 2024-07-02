@@ -207,6 +207,9 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public GameObject linearDraggableLogicaSacarSurepal;
 
+    public GameObject linearDraggablePellizcar;
+    public GameObject manosPellizcar;
+
     public GameObject botonSurepal;
 
     #region Auxiliares
@@ -735,6 +738,7 @@ public class ControladorCaso1Surepal : MonoBehaviour
 
     public void EnciendeDraggablesParaAnilloDeCierrePaso4()
     {
+        textoExplicacíon.text = textosDePasoEnOrden[13];
         linearDraggableLogicoAnilloeCierre.SetActive(true);
 
     }
@@ -984,6 +988,7 @@ public class ControladorCaso1Surepal : MonoBehaviour
     public void PrepararBotonDosisGiro()
     {
         linearDraggableLogicaGirarDosis.SetActive(true);
+        TurnOnOutlines(surepalDefinitivoFinal.transform.Find("Surepal.005").transform);
     }
 
     public void GiraBotonDosisSurepal()
@@ -991,10 +996,12 @@ public class ControladorCaso1Surepal : MonoBehaviour
         linearDraggableLogicaGirarDosis.SetActive(false);
         surepalDefinitivoFinal.Play("GirarDosisSurepal");
         Invoke(nameof(ElegirParteDelCuerpoParaPinchar), 8);
+        TurnOffOutlines(surepalDefinitivoFinal.transform.Find("Surepal.005").transform);
     }
 
     public void ElegirParteDelCuerpoParaPinchar()
     {
+
         parentPasos[8].SetActive(true);
     }
 
@@ -1052,15 +1059,29 @@ public class ControladorCaso1Surepal : MonoBehaviour
     {
  
         linearDraggableLogicaEcharSurepalHaciaAtras.SetActive(false);
-     
         linearDraggableLogicaSacarProtectorDeAguja.SetActive(true);
+        //Invoke(nameof(PrepararLinearDragPellizcoYManos),7);
     }
 
+    public void PrepararLinearDragPellizcoYManos() 
+    {
+        linearDraggableLogicaEcharSurepalHaciaAtras.SetActive(false);
+        linearDraggableLogicaSacarProtectorDeAguja.SetActive(false);
+        linearDraggablePellizcar.SetActive(true);
+        manosPellizcar.SetActive(true);
+    }
+
+    public void Pellizcar() 
+    {
+        linearDraggablePellizcar.SetActive(false);
+        Invoke(nameof(PrepararSurepalParaPinchar),2);
+        TurnOffOutlines(manosPellizcar.transform);
+    }
 
     public void PrepararSurepalParaPinchar()
     {
 
-        linearDraggableLogicaSacarProtectorDeAguja.SetActive(false);
+        //linearDraggableLogicaSacarProtectorDeAguja.SetActive(false);
         surepalDefinitivoFinal.Play("PrepararSurepalParaPinchar");
         surepalDefinitivoFinal.speed = 1;
         Invoke(nameof(SacarDragAndDropParaPinchar), 4f);
@@ -1070,6 +1091,7 @@ public class ControladorCaso1Surepal : MonoBehaviour
     {
   
         linearDraggableLogicaPincharSurepal.SetActive(true);
+        TurnOnOutlines(surepalDefinitivoFinal.transform);
     }
 
     public void PincharBarriga()
@@ -1078,16 +1100,16 @@ public class ControladorCaso1Surepal : MonoBehaviour
         linearDraggableLogicaPincharSurepal.SetActive(false);
     
         linearDraggableLogicaPulsarBotonEnSurepal.SetActive(true);
-
-        linearDraggableLogicaSacarSurepal.SetActive(true);
+        TurnOffOutlines(surepalDefinitivoFinal.transform);
+        TurnOnOutlines(botonSurepal.transform);
+        //linearDraggableLogicaSacarSurepal.SetActive(true);
+        //linearDraggableLogicaSacarSurepal.SetActive(true);
     }
 
     public void PresionarBoton() 
     {
         linearDraggableLogicaPulsarBotonEnSurepal.SetActive(false);
-        TurnOnOutlines(botonSurepal.transform);
-       
-        linearDraggableLogicaSacarSurepal.SetActive(true);
+        //linearDraggableLogicaSacarSurepal.SetActive(true);
     }
 
     public void RetirarSurepal()
@@ -1101,7 +1123,8 @@ public class ControladorCaso1Surepal : MonoBehaviour
     public void TimerDone()
     {
         linearDraggableLogicaPulsarBotonEnSurepal.GetComponentInChildren<LinearDragable>().canInteract = false;
-        TurnOffOutlines(surepalDefinitivoFinal.transform.GetChild(3));
+        TurnOffOutlines(botonSurepal.transform);
+        linearDraggableLogicaSacarSurepal.SetActive(true);
         TurnOffOutlines(botonSurepal.transform);
     }
 
